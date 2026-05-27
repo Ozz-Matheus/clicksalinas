@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('static_pages', function (Blueprint $table) {
             $table->id();
-            $table->string('name'); 
+            $table->string('name');
             $table->string('slug')->unique(); // Antes 'url' (home, about, contact)
             $table->string('cover_title')->nullable();
             $table->mediumText('cover_paragraph')->nullable();
