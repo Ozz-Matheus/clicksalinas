@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources\StaticPages;
 
 use App\Filament\Resources\StaticPages\Pages\CreateStaticPage;
@@ -18,7 +20,24 @@ class StaticPageResource extends Resource
 {
     protected static ?string $model = StaticPage::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    // Cambiamos el icono a uno más representativo
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedDocumentText;
+
+    // Agrupamos en el menú lateral
+    public static function getNavigationGroup(): string
+    {
+        return 'Páginas Estáticas';
+    }
+
+    public static function getModelLabel(): string
+    {
+        return 'Página Estática';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Páginas Estáticas';
+    }
 
     public static function form(Schema $schema): Schema
     {

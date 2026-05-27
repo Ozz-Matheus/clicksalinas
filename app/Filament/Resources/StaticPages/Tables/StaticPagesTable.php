@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources\StaticPages\Tables;
 
 use Filament\Actions\BulkActionGroup;
@@ -16,19 +18,17 @@ class StaticPagesTable
         return $table
             ->columns([
                 TextColumn::make('name')
-                    ->searchable(),
+                    ->label('Nombre')
+                    ->searchable()
+                    ->sortable(),
                 TextColumn::make('slug')
+                    ->label('Slug / URL')
                     ->searchable(),
-                TextColumn::make('cover_title')
-                    ->searchable(),
-                TextColumn::make('info_title')
-                    ->searchable(),
-                ImageColumn::make('cover_image_path'),
-                TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                ImageColumn::make('cover_image_path')
+                    ->label('Portada')
+                    ->circular(),
                 TextColumn::make('updated_at')
+                    ->label('Última actualización')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
