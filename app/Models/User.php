@@ -36,8 +36,8 @@ class User extends Authenticatable
         return $this->hasMany(Post::class);
     }
 
-    public function pages(): HasMany
+    public function albums(): HasMany
     {
-        return $this->hasMany(Page::class);
+        return $this->hasMany(Album::class);
     }
 }

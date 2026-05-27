@@ -10,15 +10,10 @@ return new class extends Migration
     {
         Schema::create('emails', function (Blueprint $table) {
             $table->id();
-
             $table->string('name');
-
             $table->string('email')->index();
-
             $table->string('phone');
-
             $table->mediumText('message')->nullable();
-
             $table->timestamps();
         });
     }

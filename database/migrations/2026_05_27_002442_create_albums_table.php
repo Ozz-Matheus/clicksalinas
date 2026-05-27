@@ -8,28 +8,23 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('albums', function (Blueprint $table) {
             $table->id();
             $table->string('title');
             $table->string('slug')->unique();
-            $table->mediumText('excerpt')->nullable();
-            $table->mediumText('iframe')->nullable();
             $table->text('body')->nullable();
             $table->timestamp('published_at')->nullable();
-            $table->foreignId('category_id')
-                ->nullable()
-                ->constrained()
-                ->nullOnDelete();
-            $table->foreignId('user_id')
-                ->nullable()
-                ->constrained()
-                ->cascadeOnDelete();
+
+            // Relación con servicios y usuarios
+            $table->foreignId('service_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
+
             $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('albums');
     }
 };

@@ -6,22 +6,22 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
-class Page extends Model
+class Album extends Model
 {
     protected $fillable = [
         'title',
-        'url',
+        'slug',
         'body',
         'published_at',
-        'photography_id',
+        'service_id',
         'user_id',
     ];
 
     public function getRouteKeyName(): string
     {
-        return 'url';
+        return 'slug';
     }
 
     protected function casts(): array
@@ -31,18 +31,18 @@ class Page extends Model
         ];
     }
 
-    public function photograph(): BelongsTo
+    public function service(): BelongsTo
     {
-        return $this->belongsTo(Photograph::class, 'photography_id');
-    }
-
-    public function images(): HasMany
-    {
-        return $this->hasMany(Image::class);
+        return $this->belongsTo(Service::class);
     }
 
     public function owner(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function media(): MorphMany
+    {
+        return $this->morphMany(Media::class, 'mediable');
     }
 }

@@ -8,23 +8,17 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('photos', function (Blueprint $table) {
+        Schema::create('media', function (Blueprint $table) {
             $table->id();
-
-            $table->foreignId('post_id')
-                ->constrained()
-                ->cascadeOnDelete();
-
-            $table->mediumText('url');
-
-            $table->mediumText('name')->nullable();
-
+            $table->morphs('mediable'); // Genera mediable_id y mediable_type automáticamente
+            $table->string('name')->nullable(); // Atributo Alt para SEO
+            $table->string('file_path'); // (ruta de la imagen)
             $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('photos');
+        Schema::dropIfExists('media');
     }
 };

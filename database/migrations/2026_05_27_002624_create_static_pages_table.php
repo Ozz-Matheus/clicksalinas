@@ -11,12 +11,12 @@ return new class extends Migration
         Schema::create('static_pages', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('slug')->unique(); // Antes 'url' (home, about, contact)
+            $table->string('slug')->unique(); // (home, about, contact)
             $table->string('cover_title')->nullable();
             $table->mediumText('cover_paragraph')->nullable();
             $table->string('info_title')->nullable();
             $table->mediumText('info_paragraph')->nullable();
-            $table->string('cover_image_path')->nullable(); // Antes 'cover'
+            $table->string('cover_image_path')->nullable();
             $table->json('gallery')->nullable();
             $table->timestamps();
         });

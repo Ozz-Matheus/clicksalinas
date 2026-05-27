@@ -27,7 +27,7 @@ class StaticPage extends Model
     protected function casts(): array
     {
         return [
-            'gallery' => 'array', // Esencial para el FileUpload múltiple de Filament sin tablas pivote
+            'gallery' => 'array',
         ];
     }
 }

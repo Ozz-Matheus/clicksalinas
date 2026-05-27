@@ -11,12 +11,12 @@ class Category extends Model
 {
     protected $fillable = [
         'name',
-        'url',
+        'slug',
     ];
 
     public function getRouteKeyName(): string
     {
-        return 'url';
+        return 'slug';
     }
 
     public function posts(): HasMany

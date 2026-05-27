@@ -7,13 +7,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Post extends Model
 {
     protected $fillable = [
         'title',
-        'url',
+        'slug',
         'excerpt',
         'iframe',
         'body',
@@ -24,7 +23,7 @@ class Post extends Model
 
     public function getRouteKeyName(): string
     {
-        return 'url';
+        return 'slug';
     }
 
     protected function casts(): array
@@ -44,9 +43,9 @@ class Post extends Model
         return $this->belongsToMany(Tag::class);
     }
 
-    public function photos(): HasMany
+    public function media(): MorphMany
     {
-        return $this->hasMany(Photo::class);
+        return $this->morphMany(Media::class, 'mediable');
     }
 
     public function owner(): BelongsTo

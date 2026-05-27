@@ -7,24 +7,24 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Photograph extends Model
+class Service extends Model
 {
     protected $fillable = [
         'name',
+        'slug',
         'cover_title',
         'cover_paragraph',
         'info_title',
         'info_paragraph',
-        'url',
     ];
 
     public function getRouteKeyName(): string
     {
-        return 'url';
+        return 'slug';
     }
 
-    public function pages(): HasMany
+    public function albums(): HasMany
     {
-        return $this->hasMany(Page::class, 'photography_id');
+        return $this->hasMany(Album::class);
     }
 }
