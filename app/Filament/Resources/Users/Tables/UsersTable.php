@@ -29,7 +29,7 @@ class UsersTable
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
                         'super_admin' => 'success',
-                        default => 'primary',
+                        default => 'info',
                     }),
                 TextColumn::make('email_verified_at')
                     ->label('Correo electrónico verificado en')
