@@ -23,11 +23,7 @@ class StaticPageResource extends Resource
     // Cambiamos el icono a uno más representativo
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedDocumentText;
 
-    // Agrupamos en el menú lateral
-    public static function getNavigationGroup(): string
-    {
-        return 'Páginas Estáticas';
-    }
+    protected static ?string $recordTitleAttribute = 'name';
 
     public static function getModelLabel(): string
     {
@@ -35,6 +31,11 @@ class StaticPageResource extends Resource
     }
 
     public static function getPluralModelLabel(): string
+    {
+        return 'Páginas Estáticas';
+    }
+
+    public static function getNavigationLabel(): string
     {
         return 'Páginas Estáticas';
     }

@@ -22,6 +22,21 @@ class AlbumResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'title';
 
+    public static function getModelLabel(): string
+    {
+        return 'Álbum';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Álbumes';
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return 'Álbumes';
+    }
+
     public static function form(Schema $schema): Schema
     {
         return AlbumForm::configure($schema);

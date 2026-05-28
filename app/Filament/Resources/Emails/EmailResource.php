@@ -24,6 +24,21 @@ class EmailResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'name';
 
+    public static function getModelLabel(): string
+    {
+        return 'Correo Electrónico';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Correos Electrónicos';
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return 'Correos Electrónicos';
+    }
+
     public static function form(Schema $schema): Schema
     {
         return EmailForm::configure($schema);
