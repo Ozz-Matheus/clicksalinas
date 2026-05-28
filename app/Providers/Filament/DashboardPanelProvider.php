@@ -55,7 +55,7 @@ class DashboardPanelProvider extends PanelProvider
             ])
             ->plugins([
                 FilamentShieldPlugin::make()
-                    ->navigationSort(1)
+                    ->navigationSort(8)
                     ->navigationGroup('Gestión de Usuarios'),
 
             ])

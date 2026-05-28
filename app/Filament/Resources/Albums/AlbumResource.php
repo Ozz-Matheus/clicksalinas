@@ -22,6 +22,8 @@ class AlbumResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'title';
 
+    protected static ?int $navigationSort = 1;
+
     public static function getModelLabel(): string
     {
         return 'Álbum';
