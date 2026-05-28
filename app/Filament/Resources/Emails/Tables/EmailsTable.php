@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources\Emails\Tables;
 
 use Filament\Actions\BulkActionGroup;
-use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
@@ -16,36 +17,30 @@ class EmailsTable
             ->columns([
                 TextColumn::make('name')
                     ->label('Nombre')
-                    ->searchable(),
+                    ->searchable()
+                    ->sortable(),
                 TextColumn::make('email')
-                    ->label('Correo Electrónico')
-                    ->searchable(),
+                    ->label('Correo')
+                    ->searchable()
+                    ->sortable(),
                 TextColumn::make('phone')
                     ->label('Teléfono')
                     ->searchable(),
                 TextColumn::make('created_at')
-                    ->label('Fecha de Creación')
+                    ->label('Fecha de Recepción')
                     ->since()
                     ->dateTooltip()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
-                    ->label('Última Actualización')
-                    ->since()
-                    ->dateTooltip()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->sortable(),
             ])
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 //
             ])
             ->recordActions([
                 ViewAction::make(),
-                EditAction::make(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
-                    //
                 ]),
             ]);
     }
