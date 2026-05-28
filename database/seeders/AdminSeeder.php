@@ -14,6 +14,8 @@ class AdminSeeder extends Seeder
     public function run(): void
     {
         $superAdminRole = Role::findOrCreate('super_admin');
+        $managerRole = Role::findOrCreate('manager');
+        $userRole = Role::findOrCreate('panel_user');
 
         $superAdmin = User::firstOrCreate(
             ['email' => 'admin@admin.com'],
@@ -24,5 +26,26 @@ class AdminSeeder extends Seeder
         );
 
         $superAdmin->assignRole($superAdminRole);
+
+        $manager = User::firstOrCreate(
+            ['email' => 'manager@manager.com'],
+            [
+                'name' => 'Manager',
+                'password' => bcrypt('manager@manager.com'),
+            ]
+        );
+
+        $manager->assignRole($managerRole);
+
+        $user = User::firstOrCreate(
+            ['email' => 'user@user.com'],
+            [
+                'name' => 'User',
+                'password' => bcrypt('user@user.com'),
+            ]
+        );
+
+        $user->assignRole($userRole);
+
     }
 }
