@@ -11,17 +11,22 @@ class EmailInfolist
     {
         return $schema
             ->components([
-                TextEntry::make('name'),
+                TextEntry::make('name')
+                    ->label('Nombre'),
                 TextEntry::make('email')
-                    ->label('Email address'),
-                TextEntry::make('phone'),
+                    ->label('Correo Electrónico'),
+                TextEntry::make('phone')
+                    ->label('Teléfono'),
                 TextEntry::make('message')
+                    ->label('Mensaje')
                     ->placeholder('-')
                     ->columnSpanFull(),
                 TextEntry::make('created_at')
+                    ->label('Fecha de Creación')
                     ->dateTime()
                     ->placeholder('-'),
                 TextEntry::make('updated_at')
+                    ->label('Última Actualización')
                     ->dateTime()
                     ->placeholder('-'),
             ]);

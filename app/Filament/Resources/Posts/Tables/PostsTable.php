@@ -3,7 +3,6 @@
 namespace App\Filament\Resources\Posts\Tables;
 
 use Filament\Actions\BulkActionGroup;
-use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
@@ -15,23 +14,36 @@ class PostsTable
         return $table
             ->columns([
                 TextColumn::make('title')
+                    ->label('Título')
                     ->searchable(),
-                TextColumn::make('slug')
+                TextColumn::make('excerpt')
+                    ->label('Extracto')
+                    ->limit(30)
+                    ->tooltip(fn ($record) => $record->excerpt)
                     ->searchable(),
                 TextColumn::make('published_at')
-                    ->dateTime()
+                    ->label('Fecha de Publicación')
+                    ->since()
+                    ->dateTooltip()
                     ->sortable(),
                 TextColumn::make('category.name')
-                    ->searchable(),
-                TextColumn::make('user_id')
-                    ->numeric()
-                    ->sortable(),
+                    ->label('Categoría')
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('owner.name')
+                    ->label('Propietario')
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('created_at')
-                    ->dateTime()
+                    ->label('Fecha de Creación')
+                    ->since()
+                    ->dateTooltip()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
-                    ->dateTime()
+                    ->label('Última Actualización')
+                    ->since()
+                    ->dateTooltip()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
@@ -43,7 +55,7 @@ class PostsTable
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
-                    DeleteBulkAction::make(),
+                    //
                 ]),
             ]);
     }

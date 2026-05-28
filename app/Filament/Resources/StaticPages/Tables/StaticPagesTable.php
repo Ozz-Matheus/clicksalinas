@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Filament\Resources\StaticPages\Tables;
 
 use Filament\Actions\BulkActionGroup;
-use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
@@ -21,9 +20,6 @@ class StaticPagesTable
                     ->label('Nombre')
                     ->searchable()
                     ->sortable(),
-                TextColumn::make('slug')
-                    ->label('Slug / URL')
-                    ->searchable(),
                 ImageColumn::make('cover_image_path')
                     ->label('Portada')
                     ->circular(),
@@ -41,7 +37,7 @@ class StaticPagesTable
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
-                    DeleteBulkAction::make(),
+                    //
                 ]),
             ]);
     }

@@ -37,13 +37,15 @@ class UsersTable
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('created_at')
-                    ->label('Creado en')
-                    ->dateTime()
+                    ->label('Fecha de Creación')
+                    ->since()
+                    ->dateTooltip()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
-                    ->label('Actualizado en')
-                    ->dateTime()
+                    ->label('Última Actualización')
+                    ->since()
+                    ->dateTooltip()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
