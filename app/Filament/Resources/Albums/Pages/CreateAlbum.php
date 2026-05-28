@@ -8,4 +8,6 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateAlbum extends CreateRecord
 {
     protected static string $resource = AlbumResource::class;
+
+    protected static bool $canCreateAnother = false;
 }

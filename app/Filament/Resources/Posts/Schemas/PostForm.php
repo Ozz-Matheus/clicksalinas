@@ -33,14 +33,38 @@ class PostForm
                 Section::make('Información Principal')
                     ->schema([
                         TextInput::make('title')
-                            ->label('Título del Post')
+                            ->label('Título de la Publicación')
                             ->required()
                             ->live(onBlur: true)
                             ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state ?? ''))),
 
                         TextInput::make('slug')
+                            ->label('Enlace')
                             ->required()
                             ->unique(ignoreRecord: true),
+
+                        Textarea::make('excerpt')
+                            ->label('Extracto (Resumen corto)')
+                            ->rows(3)
+                            ->columnSpanFull(),
+
+                        RichEditor::make('body')
+                            ->label('Contenido')
+                            ->columnSpanFull(),
+
+                        Textarea::make('iframe')
+                            ->label('Código de inserción (YouTube/Vimeo)')
+                            ->rows(3)
+                            ->columnSpanFull(),
+
+                    ])->columns(2),
+
+                Section::make('Información Adicional')
+                    ->schema([
+
+                        DateTimePicker::make('published_at')
+                            ->label('Fecha de Publicación')
+                            ->default(now()),
 
                         Select::make('category_id')
                             ->label('Categoría')
@@ -56,31 +80,6 @@ class PostForm
                             ->searchable()
                             ->preload(),
 
-                        DateTimePicker::make('published_at')
-                            ->label('Fecha de Publicación')
-                            ->default(now()),
-                    ])->columns(2),
-
-                Section::make('Contenido')
-                    ->schema([
-                        Textarea::make('excerpt')
-                            ->label('Extracto (Resumen corto)')
-                            ->rows(3)
-                            ->columnSpanFull(),
-
-                        RichEditor::make('body')
-                            ->label('Cuerpo del Post')
-                            ->columnSpanFull(),
-
-                        Textarea::make('iframe')
-                            ->label('Código de inserción (YouTube/Vimeo)')
-                            ->rows(3)
-                            ->columnSpanFull(),
-                    ]),
-
-                Section::make('Galería del Artículo (Optimizada)')
-                    ->description('Sube las fotos que acompañarán al post. Se optimizan a WebP y extraen el Alt de forma automática.')
-                    ->schema([
                         FileUpload::make('gallery_uploads')
                             ->label('Fotografías')
                             ->multiple()

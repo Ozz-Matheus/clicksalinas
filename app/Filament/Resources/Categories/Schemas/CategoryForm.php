@@ -25,6 +25,7 @@ class CategoryForm
                             ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state ?? ''))),
 
                         TextInput::make('slug')
+                            ->label('Enlace')
                             ->required()
                             ->unique(ignoreRecord: true),
                     ])->columns(2),

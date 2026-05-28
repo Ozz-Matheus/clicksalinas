@@ -23,7 +23,6 @@ class StaticPageForm
         return $schema
             ->components([
                 Section::make('Información Principal')
-                    ->description('Identificadores únicos de la página.')
                     ->schema([
                         TextInput::make('name')
                             ->required()
@@ -32,15 +31,10 @@ class StaticPageForm
                             ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state ?? ''))),
 
                         TextInput::make('slug')
+                            ->label('Enlace')
                             ->required()
                             ->maxLength(255)
                             ->unique(ignoreRecord: true),
-
-                    ])->columns(2),
-
-                Section::make('Sección de Portada')
-                    ->description('Textos e imagen principal que aparecen al inicio de la página.')
-                    ->schema([
                         TextInput::make('cover_title')
                             ->maxLength(255),
                         Textarea::make('cover_paragraph')
@@ -67,21 +61,16 @@ class StaticPageForm
 
                                 return $filename;
                             }),
+
                     ]),
 
-                Section::make('Sección de Información')
-                    ->description('Textos secundarios (ej. Misión, Visión, o textos extra).')
+                Section::make('Información Adicional')
                     ->schema([
                         TextInput::make('info_title')
                             ->maxLength(255),
                         Textarea::make('info_paragraph')
                             ->rows(3)
                             ->columnSpanFull(),
-                    ]),
-
-                Section::make('Galería de Imágenes')
-                    ->description('Sube múltiples imágenes. Puedes arrastrarlas para reordenarlas.')
-                    ->schema([
                         FileUpload::make('gallery')
                             ->label('Galería')
                             ->multiple()

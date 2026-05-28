@@ -25,21 +25,18 @@ class ServiceForm
                             ->live(onBlur: true)
                             ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state ?? ''))),
                         TextInput::make('slug')
+                            ->label('Enlace')
                             ->required()
                             ->unique(ignoreRecord: true),
-                    ])->columns(2),
-
-                Section::make('Textos de Portada')
-                    ->schema([
                         TextInput::make('cover_title')->label('Título de Portada'),
                         Textarea::make('cover_paragraph')->label('Párrafo de Portada')->rows(3),
-                    ])->columns(2),
+                    ]),
 
-                Section::make('Textos de Información')
+                Section::make('Información Adicional')
                     ->schema([
                         TextInput::make('info_title')->label('Título de Información'),
                         Textarea::make('info_paragraph')->label('Párrafo de Información')->rows(3),
-                    ])->columns(2),
+                    ]),
             ]);
     }
 }

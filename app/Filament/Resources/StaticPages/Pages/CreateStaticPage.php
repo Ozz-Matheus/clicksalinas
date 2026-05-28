@@ -8,4 +8,6 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateStaticPage extends CreateRecord
 {
     protected static string $resource = StaticPageResource::class;
+
+    protected static bool $canCreateAnother = false;
 }

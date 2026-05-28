@@ -39,29 +39,28 @@ class AlbumForm
                             ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state ?? ''))),
 
                         TextInput::make('slug')
+                            ->label('Enlace')
                             ->required()
                             ->unique(ignoreRecord: true),
 
+                        RichEditor::make('body')
+                            ->label('Contenido del post')
+                            ->columnSpanFull(),
+
+                    ])->columns(2),
+
+                Section::make('Información Adicional')
+                    ->schema([
+
                         Select::make('service_id')
-                            ->label('Servicio (Categoría)')
+                            ->label('Servicio')
                             ->relationship('service', 'name')
                             ->required(),
 
                         DateTimePicker::make('published_at')
                             ->label('Fecha de Publicación')
                             ->default(now()),
-                    ])->columns(2),
 
-                Section::make('Descripción')
-                    ->schema([
-                        RichEditor::make('body')
-                            ->label('Contenido del post')
-                            ->columnSpanFull(),
-                    ]),
-
-                Section::make('Galería Fotográfica (Subida Múltiple)')
-                    ->description('Arrastra todas las fotos a la vez. El sistema optimizará cada una a WebP y usará el nombre original como texto ALT para SEO.')
-                    ->schema([
                         FileUpload::make('gallery_uploads') // Nombre virtual
                             ->label('Fotografías')
                             ->multiple()
