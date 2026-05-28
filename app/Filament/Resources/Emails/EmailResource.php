@@ -20,7 +20,7 @@ class EmailResource extends Resource
 {
     protected static ?string $model = Email::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::Envelope;
 
     protected static ?string $recordTitleAttribute = 'name';
 
