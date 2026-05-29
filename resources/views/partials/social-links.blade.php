@@ -5,7 +5,7 @@
       <li><a href="http://pinterest.com/pin/create/button/?url={{ request()->fullUrl() }}&amp;description={{ urlencode($description) }}" target="_blank" title="Pin it" rel="noopener" class="material-icons"><i class="fa fa-pinterest-square" aria-hidden="true"></i><span class="sr-only">pinterest</span></a></li>
     </ul>
     <div class="section_pt-xsmall click-to-go-back">
-      <a href=" {{ setActiveRoute(['posts.show']) == "active" ? route('posts.index') : "/photographs/".$page->photography->url   }}" class="link-arrow">
+      <a href="{{ request()->routeIs('blog.show') ? route('blog.index') : route('portfolio.service', $page->service->slug) }}" class="link-arrow">
         <div class="link-arrow__icon material-icons"> keyboard_arrow_left </div>
         <div class="link-arrow__label">
           Click to go back

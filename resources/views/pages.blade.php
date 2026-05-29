@@ -29,7 +29,7 @@
         @else
             @include('albums.grid')
             <div class="section_pt-xsmall section_pb-xsmall">
-                {{ $featured_images->appends(request()->all())->links() }}
+                {{ $albums->appends(request()->all())->links() }}
             </div>
         @endif
 

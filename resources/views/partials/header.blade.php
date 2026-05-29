@@ -33,22 +33,22 @@
               <li class="menu-item-has-children"><a href="#" data-letter="P">
                   <div class="menu-overlay__item-wrapper js-text-to-fly split-text js-split-text" data-split-text-type="lines, words, chars">Photography</div></a>
                 <ul class="sub-menu">
-                  <li><a href="{{ route('portfolio.album', 'weddings') }}" data-letter="W" data-pjax-link="overlayMenu">
+                  <li><a href="{{ route('portfolio.service', 'weddings') }}" data-letter="W" data-pjax-link="overlayMenu">
                       <div class="menu-overlay__item-wrapper js-text-to-fly split-text js-split-text" data-split-text-type="lines, words, chars">Weddings</div></a>
                   </li>
-                  <li><a href="{{ route('portfolio.album', 'corporates') }}" data-letter="C" data-pjax-link="overlayMenu">
+                  <li><a href="{{ route('portfolio.service', 'corporates') }}" data-letter="C" data-pjax-link="overlayMenu">
                       <div class="menu-overlay__item-wrapper js-text-to-fly split-text js-split-text" data-split-text-type="lines, words, chars">Corporates</div></a>
                   </li>
-                  <li><a href="{{ route('portfolio.album', 'commercials') }}" data-letter="C" data-pjax-link="overlayMenu">
+                  <li><a href="{{ route('portfolio.service', 'commercials') }}" data-letter="C" data-pjax-link="overlayMenu">
                       <div class="menu-overlay__item-wrapper js-text-to-fly split-text js-split-text" data-split-text-type="lines, words, chars">Commercials</div></a>
                   </li>
-                  <li><a href="{{ route('portfolio.album', 'photoshoot') }}" data-letter="P" data-pjax-link="overlayMenu">
+                  <li><a href="{{ route('portfolio.service', 'photoshoot') }}" data-letter="P" data-pjax-link="overlayMenu">
                       <div class="menu-overlay__item-wrapper js-text-to-fly split-text js-split-text" data-split-text-type="lines, words, chars">Photoshoot</div></a>
                   </li>
-                  <li><a href="{{ route('portfolio.album', 'families') }}" data-letter="F" data-pjax-link="overlayMenu">
+                  <li><a href="{{ route('portfolio.service', 'families') }}" data-letter="F" data-pjax-link="overlayMenu">
                       <div class="menu-overlay__item-wrapper js-text-to-fly split-text js-split-text" data-split-text-type="lines, words, chars">Families</div></a>
                   </li>
-                  <li><a href="{{ route('portfolio.album', 'proposals') }}" data-letter="P" data-pjax-link="overlayMenu">
+                  <li><a href="{{ route('portfolio.service', 'proposals') }}" data-letter="P" data-pjax-link="overlayMenu">
                     <div class="menu-overlay__item-wrapper js-text-to-fly split-text js-split-text" data-split-text-type="lines, words, chars">Proposals</div></a>
                 </li>
                 </ul>
