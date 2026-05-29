@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Mail\Contact;
 use App\Models\Email;
 use App\Models\StaticPage;
+use App\Rules\Recaptcha;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -38,6 +39,9 @@ class ContactController extends Controller
             'email' => ['required', 'email', 'max:255'],
             'phone' => ['nullable', 'string', 'max:20'],
             'message' => ['required', 'string'],
+            'g-recaptcha-response' => ['required', new Recaptcha],
+        ], [
+            'g-recaptcha-response.required' => 'Por favor, verifica que no eres un robot marcando la casilla.',
         ]);
 
         // 1. Guardar en la base de datos

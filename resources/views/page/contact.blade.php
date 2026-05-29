@@ -65,13 +65,11 @@
                 </div>
                 <div class="row form__row">
                     <div class="col form__col">
-                    {{-- {!! NoCaptcha::display() !!}  --}}
-                    {{-- {!! NoCaptcha::renderJs() !!}  --}}
-                    {{-- 
-                        @error('g-recaptcha-response')
-                            <span class="form__error">{{ $message }}</span>
-                        @enderror
-                    --}}
+                      <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+                      <div class="g-recaptcha" data-sitekey="{{ config('services.recaptcha.site') }}"></div>
+                      @error('g-recaptcha-response')
+                          <span class="form__error">{{ $message }}</span>
+                      @enderror
                     </div>
                 </div>
                 <div class="row form__row">
