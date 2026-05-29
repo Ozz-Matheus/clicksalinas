@@ -23,4 +23,9 @@ class Category extends Model
     {
         return $this->hasMany(Post::class);
     }
+
+    public function getUrlAttribute(): string
+    {
+        return $this->slug;
+    }
 }

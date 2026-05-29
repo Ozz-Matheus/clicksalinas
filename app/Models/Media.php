@@ -40,13 +40,11 @@ class Media extends Model
         });
     }
 
-    // Si tu frontend pide $foto->url, le entregamos el file_path
     public function getUrlAttribute(): string
     {
         return Storage::url($this->file_path);
     }
 
-    // Si tu frontend pide $foto->alt, le entregamos el name
     public function getAltAttribute(): ?string
     {
         return $this->name;

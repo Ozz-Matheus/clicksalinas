@@ -23,4 +23,9 @@ class Tag extends Model
     {
         return $this->belongsToMany(Post::class);
     }
+
+    public function getUrlAttribute(): string
+    {
+        return $this->slug;
+    }
 }

@@ -27,4 +27,9 @@ class Service extends Model
     {
         return $this->hasMany(Album::class);
     }
+
+    public function getUrlAttribute(): string
+    {
+        return $this->slug;
+    }
 }

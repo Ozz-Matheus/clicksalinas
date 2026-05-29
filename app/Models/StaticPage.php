@@ -30,4 +30,9 @@ class StaticPage extends Model
             'gallery' => 'array',
         ];
     }
+
+    public function getUrlAttribute(): string
+    {
+        return $this->slug;
+    }
 }
