@@ -195,13 +195,6 @@
   <script src="{{ asset('js/components.min.js')}}" defer></script>
 
   <script>
-    /* Information */
-    var company = "Click Salinas"; startProject = "08-05-2018"; versionProject = "0.1"; firstUpdateProject = "19-09-2018"; secondUpdateProject = "05-12-2022";
-    /* Description */
-    descriptionProject = "Description: Official theme for "+company+"."+'\n'+"Start of project: "+startProject+"."+'\n'+"Version: "+versionProject+"."+'\n'+"Graphic Designer : Patricia Viaña Muñoz. / Contact: https://www.linkedin.com/in/patricia-via%C3%B1a-b35053bb/"+'\n'+"Full Stack Developer: Orlando Montesinos Quintana. / Contact: https://www.linkedin.com/in/orlando-montesinos-quintana-73416b107/"+'\n'+"First Update of project: "+firstUpdateProject+"."+'\n'+"Second Update of project: "+secondUpdateProject+"."+'\n'; console.log(descriptionProject);
-  </script>
-
-  <script>
       document.addEventListener("DOMContentLoaded", function() {
           var banner = document.getElementById('cookie-banner');
           var acceptBtn = document.getElementById('cookie-accept');
