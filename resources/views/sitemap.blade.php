@@ -4,9 +4,9 @@
     {{-- Rutas Estáticas --}}
     <url>
         <loc>{{ route('pages.home') }}</loc>
-        {{-- Usar una fecha estática de tu último cambio grande de diseño/texto --}}
         <lastmod>2026-04-10T00:00:00Z</lastmod>
     </url>
+    {{-- Pendientes de activar en web.php --}}
     {{-- <url>
         <loc>{{ route('pages.about') }}</loc>
     </url>
@@ -14,27 +14,27 @@
         <loc>{{ route('pages.contact') }}</loc>
     </url> --}}
 
-    {{-- Páginas de Servicios (Money Pages) --}}
-    {{-- @foreach($services as $service)
+    {{-- Páginas de Categorías de Servicios --}}
+    @foreach($services as $service)
         <url>
-            <loc>{{ route('photographs.show', $service->url) }}</loc>
+            <loc>{{ route('portfolio.service', $service->slug) }}</loc>
             <changefreq>weekly</changefreq>
             <priority>0.9</priority>
         </url>
-    @endforeach --}}
+    @endforeach
 
-    {{-- Ciclo para Pages (Servicios) --}}
-    {{-- @foreach($pages as $page)
+    {{-- Ciclo para Álbumes / Trabajos individuales --}}
+    @foreach($albums as $album)
         <url>
-            <loc>{{ route('pages.show', $page) }}</loc>
-            <lastmod>{{ $page->updated_at->tz('UTC')->toAtomString() }}</lastmod>
+            <loc>{{ route('portfolio.album', $album->slug) }}</loc>
+            <lastmod>{{ $album->updated_at->tz('UTC')->toAtomString() }}</lastmod>
         </url>
-    @endforeach --}}
+    @endforeach
 
     {{-- Ciclo para Posts (Blog) --}}
     @foreach($posts as $post)
         <url>
-            <loc>{{ route('blog.show', $post) }}</loc>
+            <loc>{{ route('blog.show', $post->slug) }}</loc>
             <lastmod>{{ $post->updated_at->tz('UTC')->toAtomString() }}</lastmod>
         </url>
     @endforeach
@@ -42,7 +42,7 @@
     {{-- Ciclo para Tags Estratégicos --}}
     @foreach($highValueTags as $tag)
         <url>
-            <loc>{{ route('blog.tag', $tag) }}</loc>
+            <loc>{{ route('blog.tag', $tag->slug) }}</loc>
         </url>
     @endforeach
 
