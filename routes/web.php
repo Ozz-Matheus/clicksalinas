@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 | Paginas
 |--------------------------------------------------------------------------
 */
-Route::get('/', [PageController::class, 'home'])->name('pages.home');
+Route::get('/', [PageController::class, 'index'])->name('pages.home');
 Route::get('/about', [PageController::class, 'about'])->name('pages.about');
 
 /*
