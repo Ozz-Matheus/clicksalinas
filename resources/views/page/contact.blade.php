@@ -28,7 +28,7 @@
                     </div>
                 </div>
                 <div class="row form__row">
-                  <div class="col-lg-4 form__col">
+                  <div class="col-lg-12 form__col">
                     <label class="input-float">
                         <input type="text" class="input-float__input" name="name" value="{{ old('name') }}"><span class="input-float__label">Name</span>
                         @error('name')
@@ -36,7 +36,7 @@
                         @enderror
                     </label>
                   </div>
-                  <div class="col-lg-4 form__col">
+                  <div class="col-lg-12 form__col">
                     <label class="input-float">
                       <input type="email" class="input-float__input" name="email" value="{{ old('email') }}" ><span class="input-float__label">Email</span>
                       @error('email')
@@ -46,7 +46,11 @@
                   </div>
                   <div class="col-lg-4 form__col">
                     <label class="input-float">
-                        <input type="text"  class="input-float__input" name="phone" value="{{ old('phone') }}"><span class="input-float__label">Phone</span>
+                        <input type="tel" id="phone_visible" class="input-float__input" value="{{ old('phone') }}">
+                        
+                        <input type="hidden" name="phone" id="phone_hidden" value="{{ old('phone') }}">
+                        
+                        <span class="input-float__label" style="z-index: 5;">Phone</span>
                         @error('phone')
                             <span class="form__error">{{ $message }}</span>
                         @enderror
@@ -128,3 +132,51 @@
     </section>
     <!-- - section CONTACTS -->
   </div>
+
+@push('style')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@21.0.8/build/css/intlTelInput.css">
+    <style>
+        /* Ajustes base de la librería */
+        .iti { width: 100%; }
+        .iti__country-list { text-align: left; z-index: 99; color: #333; }
+        .iti__flag-container { z-index: 10; }
+
+        .iti__country-container {
+            left: 56px !important; 
+        }
+        .iti__tel-input {
+            padding-left: 102px !important; /* Ajusta este valor según el ancho de tu bandera y código de país */
+        }
+    </style>
+@endpush
+
+@push('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@21.0.8/build/js/intlTelInput.min.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        const visibleInput = document.querySelector("#phone_visible");
+        const hiddenInput = document.querySelector("#phone_hidden");
+        
+        const iti = window.intlTelInput(visibleInput, {
+          initialCountry: "us",
+          preferredCountries: ["co", "mx", "us", "es"],
+          separateDialCode: true,
+          utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@21.0.8/build/js/utils.js",
+        });
+
+        // Sincroniza el número validado hacia el campo oculto
+        const updateHiddenField = () => {
+            if (visibleInput.value.trim() !== "") {
+                // iti.getNumber() extrae el prefijo (+57) y el número
+                hiddenInput.value = iti.getNumber(); 
+            } else {
+                hiddenInput.value = "";
+            }
+        };
+
+        // Disparamos la sincronización cada vez que el usuario interactúa
+        visibleInput.addEventListener('input', updateHiddenField);
+        visibleInput.addEventListener('countrychange', updateHiddenField);
+      });
+    </script>
+@endpush
