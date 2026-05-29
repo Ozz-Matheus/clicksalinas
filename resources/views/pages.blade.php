@@ -27,7 +27,7 @@
         @elseif($page->url == 'contact')
             @include('page.contact')
         @else
-            @include('albums.grid')
+            @include('photographs.grid')
             <div class="section_pt-xsmall section_pb-xsmall">
                 {{ $albums->appends(request()->all())->links() }}
             </div>

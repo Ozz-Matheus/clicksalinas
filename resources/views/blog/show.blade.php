@@ -66,7 +66,7 @@
 
                             @elseif($post->media->count() > 1 )
 
-                              @include('posts.carousel')
+                              @include('blog.carousel')
 
                             @endif
                           @endif

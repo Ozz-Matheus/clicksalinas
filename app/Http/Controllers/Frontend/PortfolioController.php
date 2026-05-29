@@ -17,8 +17,7 @@ class PortfolioController extends Controller
      */
     public function service(Service $service): View
     {
-        // 1. Tu vista pages.blade.php espera una variable maestra llamada $page para el SEO
-        // Como los servicios tienen 'name', 'slug', 'cover_paragraph', etc., encaja perfecto.
+        // 1. La vista pages.blade.php espera una variable maestra llamada $page
         $page = $service;
 
         // 2. La vista espera una variable $pages para iterar en el grid y mostrar la paginación.
@@ -28,13 +27,11 @@ class PortfolioController extends Controller
             ->whereNotNull('published_at')
             ->where('published_at', '<=', now())
             ->latest('published_at')
-            ->paginate(12); // Puedes ajustar cuántos álbumes salen por página
+            ->paginate(12);
 
-        // 3. Fallback de imagen para el SEO de la categoría
-        // (Si no tienes columna cover_image_path en services, puedes dejarlo como null o poner una genérica)
-        $cover = $service->cover_image_path ? 'storage/'.$service->cover_image_path : null;
+        // 3. Fallback de imagen
+        $cover = $service->cover_image_path ? $service->cover_image_path : null;
 
-        // Renderizamos tu layout maestro
         return view('pages', compact('page', 'cover', 'albums'));
     }
 
@@ -44,16 +41,15 @@ class PortfolioController extends Controller
      */
     public function album(Album $album): View
     {
-        // 1. Recreamos tu lógica de 2018: Solo se ve si está publicado O si eres el admin logueado
+        // 1. Solo se ve si está publicado O si eres el admin logueado
         $isPublished = $album->published_at && $album->published_at <= now();
         abort_if(! $isPublished && ! auth()->check(), 404);
 
         // 2. Cargamos las fotos asociadas para no saturar la base de datos
         $album->load('media');
 
-        // 3. En 2018, tu vista photographs.show esperaba que la variable se llamara $page.
-        // Se la inyectamos con ese nombre para no tener que tocar ni una línea de tu HTML.
-        return view('albums.show', [
+        // 3. La vista photographs.show esperaba que la variable se llamara $page.
+        return view('photographs.show', [
             'page' => $album,
         ]);
     }

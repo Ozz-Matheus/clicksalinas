@@ -30,7 +30,7 @@ class BlogController extends Controller
 
         $post->load(['category', 'tags', 'media']);
 
-        return view('posts.show', compact('post'));
+        return view('blog.show', compact('post'));
     }
 
     public function category(Category $category): View
