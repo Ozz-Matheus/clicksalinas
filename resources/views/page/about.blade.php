@@ -1,3 +1,7 @@
+@php
+    $gallery = collect($page->gallery)
+        ->map(fn ($image) => Storage::url($image));
+@endphp
 <div class="container-fluid container_xs-no-padding">
   <!-- section MASTHEAD -->
   <section class="section section-masthead section_pt-large section_pb-small text-center bg-light" data-os-animation="data-os-animation">
@@ -5,13 +9,13 @@
       <header class="row section-masthead__header justify-content-start">
         <div class="col">
           <div class="subheading split-text js-split-text section-masthead__subheading" data-split-text-type="lines, words, chars" data-split-text-set="chars">
-            {{ $photography->name }}
+            {{ $page->name }}
           </div>
           <h1 class="js-text-to-fly split-text js-split-text section-masthead__heading" data-split-text-type="lines, words, chars" data-split-text-set="chars">
-            {{ $photography->cover_title }}
+            {{ $page->cover_title }}
           </h1>
           <div class="split-text js-split-text section-masthead__text h6 title" data-split-text-type="lines" data-split-text-set="lines">
-            {!! $photography->cover_paragraph !!}
+            {!! $page->cover_paragraph !!}
           </div>
           <div class="section__headline"></div>
         </div>
@@ -19,11 +23,11 @@
     </div>
   </section>
   <!-- - section MASTHEAD -->
-  @if(!$pages->isEmpty())
+  @if(!empty($page->gallery) && count($page->gallery) >= 3)
   <!-- section IMAGE #1 -->
   <section class="section section-image section_w-container-center section_h-800">
     <div class="section-image__wrapper" data-art-parallax="background" data-art-parallax-factor="0.1">
-      <div class="art-parallax__bg lazy-bg" data-src="{{ url('storage/'.$pages->first()->url) }}"></div>
+      <div class="art-parallax__bg lazy-bg" data-src="{{ $gallery[0] }}"></div>
     </div>
   </section>
   <!-- - section IMAGE #1 -->
@@ -32,10 +36,10 @@
       <div class="row section-masthead__header justify-content-start">
         <div class="col">
           <h2 class="js-text-to-fly split-text js-split-text section-masthead__heading" data-split-text-type="lines, words, chars" data-split-text-set="chars">
-            {{ $photography->info_title }}
+            {{ $page->info_title }}
           </h2>
           <h3 class="heading-light split-text js-split-text section-masthead__text" data-split-text-type="lines" data-split-text-set="lines">
-            {!! $photography->info_paragraph !!}
+            {!! $page->info_paragraph !!}
           </h3>
           <div class="section__headline"></div>
         </div>
@@ -49,12 +53,12 @@
         <div class="grid__item grid__item_desktop-6 grid__item_tablet-6 grid__item_mobile-12 grid__item_fluid-6 grid__item_fluid-6-fancy grid__sizer js-grid__sizer"></div>
         <div class="grid__item grid__item_desktop-6 grid__item_tablet-6 grid__item_mobile-12 grid__item_fluid-6 grid__item_fluid-6-fancy js-grid__item">
           <div class="figure-image section-image">
-            <div class="lazy"><img data-src="{{ url('storage/'.$pages[1]->url) }}" src="#" alt="{{ $pages[1]->name }}" width="900" height="1350"/></div>
+            <div class="lazy"><img data-src="{{ $gallery[1] }}" src="#" alt="{{ $page->name }} - Gallery 1" width="900" height="1350"/></div>
           </div>
         </div>
         <div class="grid__item grid__item_desktop-6 grid__item_tablet-6 grid__item_mobile-12 grid__item_fluid-6 grid__item_fluid-6-fancy js-grid__item">
           <div class="figure-image section-image">
-            <div class="lazy"><img data-src="{{ url('storage/'.$pages->last()->url) }}" src="#" alt="{{ $pages->last()->name }}" width="900" height="1350"/></div>
+            <div class="lazy"><img data-src="{{ $gallery[2] }}" src="#" alt="{{ $page->name }} - Gallery 2" width="900" height="1350"/></div>
           </div>
         </div>
       </div>
@@ -64,7 +68,7 @@
   <!-- section IMAGE #2 -->
   <section class="section section-image section_w-container-center section_h-800">
     <div class="section-image__wrapper" data-art-parallax="background" data-art-parallax-factor="0.1">
-      <div class="art-parallax__bg lazy-bg" data-src="{{ url('storage/'.$pages->last()->url) }}"></div>
+      <div class="art-parallax__bg lazy-bg" data-src="{{ $gallery[2] }}"></div>
     </div>
   </section>
   <!-- - section IMAGE #2 -->
@@ -75,4 +79,4 @@
     </h2>
   </div>
   @endif
-  </div>
+</div>

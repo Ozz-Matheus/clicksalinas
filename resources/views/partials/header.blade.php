@@ -59,12 +59,12 @@
               <li><a href="{{ route('blog.index') }}" data-letter="B" data-pjax-link="overlayMenu">
                 <div class="menu-overlay__item-wrapper js-text-to-fly split-text js-split-text" data-split-text-type="lines, words, chars">Blog</div></a>
               </li>
-              {{-- <li><a href="{{ route('pages.about') }}" data-letter="C" data-pjax-link="overlayMenu">
+              <li><a href="{{ route('pages.about') }}" data-letter="C" data-pjax-link="overlayMenu">
                   <div class="menu-overlay__item-wrapper js-text-to-fly split-text js-split-text" data-split-text-type="lines, words, chars">ClickSalinas</div></a>
               </li>
               <li><a href="{{ route('pages.contact') }}" data-letter="C" data-pjax-link="overlayMenu">
                   <div class="menu-overlay__item-wrapper js-text-to-fly split-text js-split-text" data-split-text-type="lines, words, chars">Contacts</div></a>
-              </li> --}}
+              </li>
             </ul>
           </div>
           <!-- - menu overlay -->

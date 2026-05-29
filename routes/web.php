@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\Frontend\BlogController;
 use App\Http\Controllers\Frontend\ContactController;
-use App\Http\Controllers\Frontend\HomeController;
+use App\Http\Controllers\Frontend\PageController;
 use App\Http\Controllers\Frontend\PortfolioController;
 use App\Http\Controllers\SitemapController;
 use Illuminate\Support\Facades\Route;
@@ -12,13 +12,30 @@ use Illuminate\Support\Facades\Route;
 | Paginas
 |--------------------------------------------------------------------------
 */
-Route::get('/', [HomeController::class, 'index'])->name('pages.home');
-// Route::get('/about', [HomeController::class, 'about'])->name('about');
-// Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
-// Route::post('/mail', [ContactController::class, 'store'])->name('contact.store');
+Route::get('/', [PageController::class, 'home'])->name('pages.home');
+Route::get('/about', [PageController::class, 'about'])->name('pages.about');
+
+/*
+|--------------------------------------------------------------------------
+| Contacto
+|--------------------------------------------------------------------------
+*/
+Route::get('/contact', [ContactController::class, 'index'])->name('pages.contact');
+Route::post('/mail', [ContactController::class, 'store'])->name('mail.sent');
+
+/*
+|--------------------------------------------------------------------------
+| Paginas Estáticas
+|--------------------------------------------------------------------------
+*/
 
 Route::view('/privacy-policy', 'privacy-policy')->name('privacy.policy');
 Route::view('/terms', 'terms')->name('terms');
+/*
+|--------------------------------------------------------------------------
+| Sitemap
+|--------------------------------------------------------------------------
+*/
 Route::get('/sitemap.xml', [SitemapController::class, 'index']);
 
 /*

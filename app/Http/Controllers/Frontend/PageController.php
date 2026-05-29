@@ -9,9 +9,10 @@ use App\Models\Album;
 use App\Models\Media;
 use App\Models\Service;
 use App\Models\StaticPage;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
-class HomeController extends Controller
+class PageController extends Controller
 {
     /**
      * Muestra la página principal (Home)
@@ -55,5 +56,19 @@ class HomeController extends Controller
         }
 
         return view('pages', compact('page', 'cover', 'featured_images'));
+    }
+
+    /**
+     * Muestra la página de Acerca de (About)
+     */
+    public function about(): View
+    {
+        $page = StaticPage::where('slug', 'about')->firstOrFail();
+
+        $cover = $page->cover_image_path
+            ? Storage::url($page->cover_image_path)
+            : null;
+
+        return view('pages', compact('page', 'cover'));
     }
 }
