@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Services\IndexNowService;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -32,6 +33,21 @@ class Post extends Model
         return [
             'published_at' => 'datetime',
         ];
+    }
+
+    protected static function booted(): void
+    {
+        // Avisar a los buscadores cuando se guarda/actualiza un post
+        static::saved(function (Post $post) {
+
+            $isPublished = $post->published_at && $post->published_at <= now();
+
+            // Verificamos que esté publicado y tenga slug
+            if ($isPublished && ! empty($post->slug)) {
+                $url = route('blog.show', $post->slug);
+                app(IndexNowService::class)->submit($url);
+            }
+        });
     }
 
     public function category(): BelongsTo
