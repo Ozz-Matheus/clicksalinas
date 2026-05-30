@@ -82,6 +82,7 @@ class PostForm
 
                         FileUpload::make('gallery_uploads')
                             ->label('Fotografías')
+                            ->visible(fn (string $context) => $context === 'create')
                             ->multiple()
                             ->reorderable()
                             ->appendFiles()

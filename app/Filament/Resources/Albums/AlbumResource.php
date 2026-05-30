@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Albums;
 
+use App\Filament\RelationManagers\MediaRelationManager;
 use App\Filament\Resources\Albums\Pages\CreateAlbum;
 use App\Filament\Resources\Albums\Pages\EditAlbum;
 use App\Filament\Resources\Albums\Pages\ListAlbums;
@@ -53,7 +54,7 @@ class AlbumResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            MediaRelationManager::class,
         ];
     }
 

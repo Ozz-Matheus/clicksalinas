@@ -63,6 +63,7 @@ class AlbumForm
 
                         FileUpload::make('gallery_uploads') // Nombre virtual
                             ->label('Fotografías')
+                            ->visible(fn (string $context) => $context === 'create')
                             ->multiple()
                             ->reorderable()
                             ->appendFiles()

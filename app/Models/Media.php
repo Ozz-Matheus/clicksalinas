@@ -38,6 +38,15 @@ class Media extends Model
                 }
             }
         });
+
+        // Interceptamos el momento exacto en que el registro es destruido en la BD
+        static::deleted(function (self $media) {
+            if (! empty($media->file_path)) {
+                // Eliminación directa en el disco público
+                Storage::disk('public')->delete($media->file_path);
+            }
+        });
+
     }
 
     public function getUrlAttribute(): string
