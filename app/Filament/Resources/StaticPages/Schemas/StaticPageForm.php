@@ -35,8 +35,10 @@ class StaticPageForm
                             ->required()
                             ->maxLength(255)
                             ->unique(ignoreRecord: true),
+
                         TextInput::make('cover_title')
                             ->maxLength(255),
+
                         Textarea::make('cover_paragraph')
                             ->rows(3)
                             ->columnSpanFull(),
@@ -44,50 +46,52 @@ class StaticPageForm
                         FileUpload::make('cover_image_path')
                             ->label('Imagen de Portada')
                             ->image()
+                            ->disk('public')
                             ->columnSpanFull()
+                            // SEGURO: Si cambian la portada o la borran, limpiamos el hosting
+                            ->deleteUploadedFileUsing(function (string $file) {
+                                Storage::disk('public')->delete($file);
+                            })
                             ->saveUploadedFileUsing(function (TemporaryUploadedFile $file): string {
-                                // 1. Inicializar Intervention v3
                                 $manager = new ImageManager(new Driver);
                                 $image = $manager->read($file->getRealPath());
-
-                                // 2. Redimensionar máx a 2000px (KISS: scaleDown ya incluye la regla upsize)
                                 $image->scaleDown(width: 2000);
 
-                                // 3. Generar nombre de archivo y ruta
                                 $filename = 'static_pages/covers/'.Str::random(40).'.webp';
-
-                                // 4. Codificar a WebP al 80% y guardar en el disco público
                                 Storage::disk('public')->put($filename, $image->toWebp(80)->toString());
 
                                 return $filename;
                             }),
-
                     ]),
 
                 Section::make('Información Adicional')
                     ->schema([
                         TextInput::make('info_title')
                             ->maxLength(255),
+
                         Textarea::make('info_paragraph')
                             ->rows(3)
                             ->columnSpanFull(),
+
                         FileUpload::make('gallery')
                             ->label('Galería')
                             ->multiple()
                             ->image()
                             ->reorderable()
                             ->appendFiles()
+                            ->panelLayout('grid')
+                            ->disk('public')
                             ->columnSpanFull()
-                            // El closure se ejecuta por cada archivo individualmente
+                            // BLINDAJE CRÍTICO: Borra físicamente del disco si le dan a la "X"
+                            ->deleteUploadedFileUsing(function (string $file) {
+                                Storage::disk('public')->delete($file);
+                            })
                             ->saveUploadedFileUsing(function (TemporaryUploadedFile $file): string {
                                 $manager = new ImageManager(new Driver);
                                 $image = $manager->read($file->getRealPath());
-
-                                // Redimensionar a máx 1280px para las imágenes de galería
                                 $image->scaleDown(width: 1280);
 
                                 $filename = 'static_pages/galleries/'.Str::random(40).'.webp';
-
                                 Storage::disk('public')->put($filename, $image->toWebp(80)->toString());
 
                                 return $filename;
