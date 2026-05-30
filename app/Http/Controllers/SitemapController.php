@@ -23,11 +23,13 @@ class SitemapController extends Controller
         // 2. Álbumes o sesiones fotográficas individuales publicados
         $albums = Album::whereNotNull('published_at')
             ->where('published_at', '<=', now())
+            ->latest('published_at')
             ->get();
 
         // 3. Artículos del Blog publicados
         $posts = Post::whereNotNull('published_at')
             ->where('published_at', '<=', now())
+            ->latest('published_at')
             ->get();
 
         // 4. Etiquetas estratégicas de alto valor (VIP)
