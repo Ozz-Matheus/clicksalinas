@@ -113,7 +113,9 @@
                 <li class="fa fa-whatsapp"></li>
               </div>
               <div class="figure-contact__item">
-                <a href="https://wa.me/573014171660?text=Hola%20ClickSalinas,%20los%20contacto%20para%20m%C3%A1s%20informaci%C3%B3n%20sobre%20sus%20servicios!" target="_blank" rel="noopener">
+                <a href="https://wa.me/573014171660?text=Hola%20ClickSalinas,%20vi%20su%20sitio%20web%20y%20los%20contacto%20para%20conocer%20m%C3%A1s%20sobre%20sus%20servicios."
+                  target="_blank"
+                  rel="noopener">
                   WhatsApp
                 </a>
               </div>

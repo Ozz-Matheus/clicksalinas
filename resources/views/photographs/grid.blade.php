@@ -24,7 +24,7 @@
                   <div class="grid__item grid__item_desktop-6 grid__item_tablet-6 grid__item_mobile-12 grid__item_fluid-3 js-grid__item house-interior"><a class="figure-portfolio figure-portfolio-item_hover" href="{{ url('/photography', $album) }}" data-pjax-link="flyingHeading">
                       <div class="figure-portfolio__wrapper-img">
                         <div class="lazy">
-                          <img data-src="{{ url($album->media->sortBy('name')->first()->url) }}" src="#" alt="" width="960" height="960"/>
+                          <img data-src="{{ url(optional($album->media->sortBy('name')->first())->url ?? '/multimedia/contact/cover-contact.jpg') }}" src="#" alt="" width="960" height="960"/>
                         </div>
                         <div class="figure-portfolio__content bg-accent-primary-2">
                           <div class="figure-portfolio__category">{{ $album->service->name }}</div>

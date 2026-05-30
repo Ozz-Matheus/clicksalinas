@@ -17,10 +17,10 @@
             </div>
             <div class="col d-none d-md-block text-right header__col-right">
               <ul class="social">
-                <li class="social__item"><a class="fa fa-facebook-f" href="https://www.facebook.com/clicksalinas16/" target="_blank" rel="noopener"></a></li>
+                <li class="social__item"><a class="fa fa-facebook-f" href="https://www.facebook.com/clicksalinas.photo/" target="_blank" rel="noopener"></a></li>
                 <li class="social__item"><a class="fa fa-instagram" href="https://www.instagram.com/clicksalinas.photo/" target="_blank" rel="noopener"></a></li>
                 <li class="social__item"><a class="fa fa-vimeo" href="https://vimeo.com/carlossalinasphotography" target="_blank" rel="noopener"></a></li>
-                <li class="social__item"><a class="fa fa-whatsapp" href="https://wa.me/573014171660?text=Hola%20ClickSalinas,%20quisiera%20m%C3%A1s%20informaci%C3%B3n%20sobre%20sus%20servicios!" target="_blank" rel="noopener"></a></li>
+                <li class="social__item"><a class="fa fa-whatsapp" href="https://wa.me/573014171660?text=Hola%20ClickSalinas,%20vi%20su%20sitio%20web%20y%20me%20interesa%20conocer%20m%C3%A1s%20sobre%20sus%20servicios." target="_blank" rel="noopener"></a></li>
               </ul>
             </div>
           </div>
@@ -73,10 +73,10 @@
               <div class="row justify-content-between">
                 <div class="col-lg-4 text-center d-lg-none">
                   <ul class="social">
-                    <li class="social__item"><a class="fa fa-facebook-f" href="https://www.facebook.com/clicksalinas16/"></a></li>
-                    <li class="social__item"><a class="fa fa-instagram" href="https://www.instagram.com/clicksalinas.photo/"></a></li>
-                    <li class="social__item"><a class="fa fa-vimeo" href="https://vimeo.com/carlossalinasphotography"></a></li>
-                    <li class="social__item"><a class="fa fa-whatsapp" href="https://wa.me/573014171660"></a></li>
+                    <li class="social__item"><a class="fa fa-facebook-f" href="https://www.facebook.com/clicksalinas.photo/" target="_blank" rel="noopener"></a></li>
+                    <li class="social__item"><a class="fa fa-instagram" href="https://www.instagram.com/clicksalinas.photo/" target="_blank" rel="noopener"></a></li>
+                    <li class="social__item"><a class="fa fa-vimeo" href="https://vimeo.com/carlossalinasphotography" target="_blank" rel="noopener"></a></li>
+                    <li class="social__item"><a class="fa fa-whatsapp" href="https://wa.me/573014171660?text=Hola%20ClickSalinas,%20vi%20su%20sitio%20web%20y%20me%20interesa%20conocer%20m%C3%A1s%20sobre%20sus%20servicios." target="_blank" rel="noopener"></a></li>
                   </ul>
                 </div>
                 <div class="col-lg-4 text-left">

@@ -112,7 +112,7 @@
           }
         ],
         "sameAs": [
-          "https://www.facebook.com/clicksalinas16/",
+          "https://www.facebook.com/clicksalinas.photo/",
           "https://www.instagram.com/clicksalinas.photo/",
           "https://vimeo.com/carlossalinasphotography",
           "https://twitter.com/salinnas16",
