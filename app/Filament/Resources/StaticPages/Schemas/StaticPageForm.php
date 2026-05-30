@@ -48,7 +48,6 @@ class StaticPageForm
                             ->image()
                             ->disk('public')
                             ->columnSpanFull()
-                            // SEGURO: Si cambian la portada o la borran, limpiamos el hosting
                             ->deleteUploadedFileUsing(function (string $file) {
                                 Storage::disk('public')->delete($file);
                             })
@@ -77,12 +76,10 @@ class StaticPageForm
                             ->label('Galería')
                             ->multiple()
                             ->image()
-                            ->reorderable()
                             ->appendFiles()
                             ->panelLayout('grid')
                             ->disk('public')
                             ->columnSpanFull()
-                            // BLINDAJE CRÍTICO: Borra físicamente del disco si le dan a la "X"
                             ->deleteUploadedFileUsing(function (string $file) {
                                 Storage::disk('public')->delete($file);
                             })

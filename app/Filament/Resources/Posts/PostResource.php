@@ -2,7 +2,6 @@
 
 namespace App\Filament\Resources\Posts;
 
-use App\Filament\RelationManagers\MediaRelationManager;
 use App\Filament\Resources\Posts\Pages\CreatePost;
 use App\Filament\Resources\Posts\Pages\EditPost;
 use App\Filament\Resources\Posts\Pages\ListPosts;
@@ -59,7 +58,7 @@ class PostResource extends Resource
     public static function getRelations(): array
     {
         return [
-            MediaRelationManager::class,
+            //
         ];
     }
 

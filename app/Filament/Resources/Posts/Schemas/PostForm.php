@@ -82,17 +82,18 @@ class PostForm
 
                         FileUpload::make('gallery_uploads')
                             ->label('Fotografías')
-                            ->visible(fn (string $context) => $context === 'create')
                             ->multiple()
-                            ->reorderable()
                             ->appendFiles()
                             ->panelLayout('grid')
                             ->image()
-                            ->directory('media/posts') // <-- Carpeta dedicada al blog
+                            ->directory('media/posts')
+                            ->disk('public')
                             ->columnSpanFull()
                             ->dehydrated(false)
-                            ->formatStateUsing(function (?Model $record) {
-                                return $record ? $record->media()->pluck('file_path')->toArray() : [];
+                            ->loadStateFromRelationshipsUsing(function (?Model $record, $component) {
+                                if ($record) {
+                                    $component->state($record->media()->pluck('file_path')->toArray());
+                                }
                             })
                             ->saveRelationshipsUsing(function (Model $record, $state) {
                                 $state = is_array($state) ? $state : [];
@@ -106,23 +107,16 @@ class PostForm
                                 $existingPaths = $record->media()->pluck('file_path')->toArray();
                                 foreach ($state as $path) {
                                     if (! in_array($path, $existingPaths)) {
-                                        $record->media()->create([
-                                            'file_path' => $path,
-                                        ]);
+                                        $record->media()->create(['file_path' => $path]);
                                     }
                                 }
                             })
                             ->saveUploadedFileUsing(function (TemporaryUploadedFile $file): string {
                                 $manager = new ImageManager(new Driver);
                                 $image = $manager->read($file->getRealPath());
-
                                 $image->scaleDown(width: 1280);
-
-                                $originalName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
-                                $safeName = Str::slug($originalName);
-
+                                $safeName = Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME));
                                 $filename = 'media/posts/'.$safeName.'---'.Str::random(8).'.webp';
-
                                 Storage::disk('public')->put($filename, $image->toWebp(80)->toString());
 
                                 return $filename;
