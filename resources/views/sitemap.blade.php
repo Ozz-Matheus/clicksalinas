@@ -6,13 +6,13 @@
         <loc>{{ route('pages.home') }}</loc>
         <lastmod>2026-04-10T00:00:00Z</lastmod>
     </url>
-    {{-- Pendientes de activar en web.php --}}
-    {{-- <url>
+
+    <url>
         <loc>{{ route('pages.about') }}</loc>
     </url>
     <url>
         <loc>{{ route('pages.contact') }}</loc>
-    </url> --}}
+    </url>
 
     {{-- Páginas de Categorías de Servicios --}}
     @foreach($services as $service)
