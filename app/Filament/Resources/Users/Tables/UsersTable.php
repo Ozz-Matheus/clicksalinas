@@ -38,14 +38,12 @@ class UsersTable
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('created_at')
                     ->label('Fecha de Creación')
-                    ->since()
-                    ->dateTooltip()
+                    ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
-                    ->label('Última Actualización')
-                    ->since()
-                    ->dateTooltip()
+                    ->label('Fecha de Actualización')
+                    ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])

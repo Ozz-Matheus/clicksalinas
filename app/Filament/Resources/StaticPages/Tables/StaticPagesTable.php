@@ -6,7 +6,6 @@ namespace App\Filament\Resources\StaticPages\Tables;
 
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\EditAction;
-use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
@@ -20,11 +19,13 @@ class StaticPagesTable
                     ->label('Nombre')
                     ->searchable()
                     ->sortable(),
-                ImageColumn::make('cover_image_path')
-                    ->label('Portada')
-                    ->circular(),
+                TextColumn::make('created_at')
+                    ->label('Fecha de Creación')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
-                    ->label('Última actualización')
+                    ->label('Fecha de Actualización')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

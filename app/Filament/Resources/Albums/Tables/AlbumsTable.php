@@ -2,9 +2,12 @@
 
 namespace App\Filament\Resources\Albums\Tables;
 
+use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\EditAction;
+use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 
 class AlbumsTable
@@ -15,6 +18,7 @@ class AlbumsTable
             ->columns([
                 TextColumn::make('title')
                     ->label('Título del Álbum')
+                    ->limit(60)
                     ->searchable(),
                 TextColumn::make('service.name')
                     ->label('Servicio')
@@ -27,24 +31,30 @@ class AlbumsTable
                 TextColumn::make('owner.name')
                     ->label('Nombre del Usuario')
                     ->searchable()
-                    ->sortable(),
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('created_at')
                     ->label('Fecha de Creación')
-                    ->since()
-                    ->dateTooltip()
+                    ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
                     ->label('Fecha de Actualización')
-                    ->since()
-                    ->dateTooltip()
+                    ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-            ])
+            ])->defaultSort('created_at', 'desc')
             ->filters([
-                //
+                SelectFilter::make('service_id')
+                    ->label('Servicio')
+                    ->relationship('service', 'name'),
             ])
             ->recordActions([
+                Action::make('view')
+                    ->label('Ver')
+                    ->icon(Heroicon::Eye)
+                    ->url(fn ($record): string => route('portfolio.album', $record))
+                    ->openUrlInNewTab(),
                 EditAction::make(),
             ])
             ->toolbarActions([

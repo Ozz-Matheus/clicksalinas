@@ -14,7 +14,7 @@
 @else
     {{-- Media Tag Social para las demás páginas (tu código original) --}}
     @section('meta-title',  $page->name .' : '. config('app.name') )
-    @section('meta-image'){{ $cover ? url($cover) : '/multimedia/contact/cover-contact.jpg' }}@stop
+    @section('meta-image'){{ $cover ? url($cover) : asset('/multimedia/contact/cover-contact.jpg') }}@stop
     @section('meta-description'){!! strip_tags($page->cover_paragraph) !!}@stop
 @endif
 
