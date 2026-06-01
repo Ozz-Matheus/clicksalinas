@@ -53,12 +53,12 @@
         <div class="grid__item grid__item_desktop-6 grid__item_tablet-6 grid__item_mobile-12 grid__item_fluid-6 grid__item_fluid-6-fancy grid__sizer js-grid__sizer"></div>
         <div class="grid__item grid__item_desktop-6 grid__item_tablet-6 grid__item_mobile-12 grid__item_fluid-6 grid__item_fluid-6-fancy js-grid__item">
           <div class="figure-image section-image">
-            <div class="lazy"><img data-src="{{ $gallery[1] }}" src="#" alt="{{ $page->name }} - Gallery 1" width="900" height="1350"/></div>
+            <div class="lazy"><img data-src="{{ $gallery[1] }}" src="#" alt="Image of Carlos Salinas, founder of ClickSalinas" width="900" height="1350"/></div>
           </div>
         </div>
         <div class="grid__item grid__item_desktop-6 grid__item_tablet-6 grid__item_mobile-12 grid__item_fluid-6 grid__item_fluid-6-fancy js-grid__item">
           <div class="figure-image section-image">
-            <div class="lazy"><img data-src="{{ $gallery[2] }}" src="#" alt="{{ $page->name }} - Gallery 2" width="900" height="1350"/></div>
+            <div class="lazy"><img data-src="{{ $gallery[2] }}" src="#" alt="Image of Carlos Salinas, founder of ClickSalinas" width="900" height="1350"/></div>
           </div>
         </div>
       </div>
