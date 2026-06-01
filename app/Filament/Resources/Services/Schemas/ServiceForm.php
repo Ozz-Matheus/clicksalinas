@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Services\Schemas;
 
-use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Set;
@@ -29,13 +29,13 @@ class ServiceForm
                             ->required()
                             ->unique(ignoreRecord: true),
                         TextInput::make('cover_title')->label('Título de Portada'),
-                        Textarea::make('cover_paragraph')->label('Párrafo de Portada')->rows(3),
+                        RichEditor::make('cover_paragraph')->label('Párrafo de Portada'),
                     ]),
 
                 Section::make('Información Adicional')
                     ->schema([
-                        TextInput::make('info_title')->label('Título de Información'),
-                        Textarea::make('info_paragraph')->label('Párrafo de Información')->rows(3),
+                        TextInput::make('info_title')->label('Título informativo'),
+                        RichEditor::make('info_paragraph')->label('Párrafo informativo'),
                     ]),
             ]);
     }

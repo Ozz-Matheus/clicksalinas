@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Resources\StaticPages\Schemas;
 
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Set;
@@ -25,6 +25,7 @@ class StaticPageForm
                 Section::make('Información Principal')
                     ->schema([
                         TextInput::make('name')
+                            ->label('Nombre')
                             ->required()
                             ->maxLength(255)
                             ->live(onBlur: true)
@@ -37,10 +38,11 @@ class StaticPageForm
                             ->unique(ignoreRecord: true),
 
                         TextInput::make('cover_title')
+                            ->label('Título de portada')
                             ->maxLength(255),
 
-                        Textarea::make('cover_paragraph')
-                            ->rows(3)
+                        RichEditor::make('cover_paragraph')
+                            ->label('Párrafo de portada')
                             ->columnSpanFull(),
 
                         FileUpload::make('cover_image_path')
@@ -66,10 +68,11 @@ class StaticPageForm
                 Section::make('Información Adicional')
                     ->schema([
                         TextInput::make('info_title')
+                            ->label('Título informativo')
                             ->maxLength(255),
 
-                        Textarea::make('info_paragraph')
-                            ->rows(3)
+                        RichEditor::make('info_paragraph')
+                            ->label('Párrafo informativo')
                             ->columnSpanFull(),
 
                         FileUpload::make('gallery')

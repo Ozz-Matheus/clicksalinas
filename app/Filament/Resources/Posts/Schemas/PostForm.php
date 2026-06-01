@@ -49,7 +49,7 @@ class PostForm
                             ->columnSpanFull(),
 
                         RichEditor::make('body')
-                            ->label('Contenido')
+                            ->label('Contenido de la publicación')
                             ->columnSpanFull(),
 
                         Textarea::make('iframe')

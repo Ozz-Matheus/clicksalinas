@@ -50,7 +50,7 @@ class AlbumsTable
                     ->relationship('service', 'name'),
             ])
             ->recordActions([
-                Action::make('view')
+                Action::make('preview')
                     ->label('Ver')
                     ->icon(Heroicon::Eye)
                     ->url(fn ($record): string => route('portfolio.album', $record))

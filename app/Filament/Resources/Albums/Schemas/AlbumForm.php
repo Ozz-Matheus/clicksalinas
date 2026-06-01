@@ -44,7 +44,7 @@ class AlbumForm
                             ->unique(ignoreRecord: true),
 
                         RichEditor::make('body')
-                            ->label('Contenido del post')
+                            ->label('Contenido del álbum')
                             ->columnSpanFull(),
 
                     ])->columns(2),
