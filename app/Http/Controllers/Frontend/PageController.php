@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
-use App\Models\Album;
 use App\Models\Service;
 use App\Models\StaticPage;
 use Illuminate\Support\Facades\Storage;
@@ -18,71 +17,42 @@ class PageController extends Controller
      */
     public function index(): View
     {
-        // 1. La variable maestra que dirige page.blade.php
         $page = StaticPage::where('slug', 'home')->firstOrFail();
-
         $cover = $page->cover_image_path ? 'storage/'.$page->cover_image_path : null;
 
-        // 2. Recreamos el objeto exacto
         $featured_images = (object) [
-            'weddingUrl' => null,
-            'weddingLast' => null,
-            'photoshootUrl' => null,
-            'photoshootLast' => null,
-            'commercialUrl' => null,
-            'commercialLast' => null,
+            'weddingUrl' => Service::where('slug', 'weddings')->first(),
+            'weddingLast' => $this->getLatestMediaFor('weddings'),
+            'photoshootUrl' => Service::where('slug', 'photoshoot')->first(),
+            'photoshootLast' => $this->getLatestMediaFor('photoshoot'),
+            'commercialUrl' => Service::where('slug', 'commercials')->first(),
+            'commercialLast' => $this->getLatestMediaFor('commercials'),
         ];
 
-        // --- Bodas ---
-        $weddings = Service::where('slug', 'weddings')->first();
-        if ($weddings) {
-            $featured_images->weddingUrl = $weddings;
-
-            $latestAlbum = Album::where('service_id', $weddings->id)
-                ->whereNotNull('published_at')
-                ->where('published_at', '<=', now())
-                ->latest('published_at')
-                ->first();
-
-            // Aplicamos tu regla exacta ->sortBy('name')->last() y la blindamos
-            $featured_images->weddingLast = ($latestAlbum && $latestAlbum->media->isNotEmpty())
-                ? $latestAlbum->media->sortBy('name')->last()
-                : null;
-        }
-
-        // --- Photoshoot ---
-        $photoshoot = Service::where('slug', 'photoshoot')->first();
-        if ($photoshoot) {
-            $featured_images->photoshootUrl = $photoshoot;
-
-            $latestAlbum = Album::where('service_id', $photoshoot->id)
-                ->whereNotNull('published_at')
-                ->where('published_at', '<=', now())
-                ->latest('published_at')
-                ->first();
-
-            $featured_images->photoshootLast = ($latestAlbum && $latestAlbum->media->isNotEmpty())
-                ? $latestAlbum->media->sortBy('name')->last()
-                : null;
-        }
-
-        // --- Commercials ---
-        $commercials = Service::where('slug', 'commercials')->first();
-        if ($commercials) {
-            $featured_images->commercialUrl = $commercials;
-
-            $latestAlbum = Album::where('service_id', $commercials->id)
-                ->whereNotNull('published_at')
-                ->where('published_at', '<=', now())
-                ->latest('published_at')
-                ->first();
-
-            $featured_images->commercialLast = ($latestAlbum && $latestAlbum->media->isNotEmpty())
-                ? $latestAlbum->media->sortBy('name')->last()
-                : null;
-        }
-
         return view('pages', compact('page', 'cover', 'featured_images'));
+    }
+
+    /**
+     * Obtiene los últimos medios para un servicio específico
+     */
+    private function getLatestMediaFor(string $serviceSlug)
+    {
+        $service = Service::where('slug', $serviceSlug)->first();
+        if (! $service) {
+            return null;
+        }
+
+        $latestAlbum = $service->albums()
+            ->where('published_at', '<=', now())
+            ->latest('published_at')
+            ->first();
+
+        if (! $latestAlbum) {
+            return null;
+        }
+
+        // Alta eficiencia: Ordena y trae solo 1 registro directamente desde SQL, no en RAM.
+        return $latestAlbum->media()->orderBy('name', 'desc')->first();
     }
 
     /**

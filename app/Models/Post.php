@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Services\IndexNowService;
+use App\Jobs\PingIndexNowJob;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -37,15 +37,13 @@ class Post extends Model
 
     protected static function booted(): void
     {
-        // Avisar a los buscadores cuando se guarda/actualiza un post
-        static::saved(function (Post $post) {
+        static::saved(function (self $model) {
+            if ($model->published_at && $model->published_at <= now() && ! empty($model->slug)) {
+                $url = $model instanceof Post
+                    ? route('blog.show', $model->slug)
+                    : route('portfolio.album', $model->slug);
 
-            $isPublished = $post->published_at && $post->published_at <= now();
-
-            // Verificamos que esté publicado y tenga slug
-            if ($isPublished && ! empty($post->slug)) {
-                $url = route('blog.show', $post->slug);
-                app(IndexNowService::class)->submit($url);
+                dispatch(new PingIndexNowJob($url));
             }
         });
     }
