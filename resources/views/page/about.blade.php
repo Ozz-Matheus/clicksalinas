@@ -11,9 +11,11 @@
           <div class="subheading split-text js-split-text section-masthead__subheading" data-split-text-type="lines, words, chars" data-split-text-set="chars">
             {{ $page->name }}
           </div>
+          @if(!empty($page->cover_title))
           <h1 class="js-text-to-fly split-text js-split-text section-masthead__heading" data-split-text-type="lines, words, chars" data-split-text-set="chars">
             {{ $page->cover_title }}
           </h1>
+          @endif
           <div class="split-text js-split-text section-masthead__text h6 title" data-split-text-type="lines" data-split-text-set="lines">
             {!! $page->cover_paragraph !!}
           </div>

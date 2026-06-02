@@ -27,6 +27,8 @@ class ProjectResetCommand extends Command
         $this->call('migrate:fresh');
         $this->call('db:seed', ['--class' => 'RolesSeeder']);
         $this->call('db:seed', ['--class' => 'AdminSeeder']);
+        $this->call('db:seed', ['--class' => 'StaticPageSeeder']);
+        $this->call('db:seed', ['--class' => 'ServiceSeeder']);
 
         $this->info('Generando permisos Shield para Dashboard...');
         $this->call('shield:generate', ['--all' => true, '--panel' => 'dashboard']);

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Posts\Schemas;
 
+use App\Services\MediaManager;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Hidden;
@@ -15,10 +16,7 @@ use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use Intervention\Image\Drivers\Gd\Driver;
-use Intervention\Image\ImageManager;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 
 class PostForm
@@ -90,37 +88,12 @@ class PostForm
                             ->disk('public')
                             ->columnSpanFull()
                             ->dehydrated(false)
-                            ->loadStateFromRelationshipsUsing(function (?Model $record, $component) {
-                                if ($record) {
-                                    $component->state($record->media()->pluck('file_path')->toArray());
-                                }
-                            })
-                            ->saveRelationshipsUsing(function (Model $record, $state) {
-                                $state = is_array($state) ? $state : [];
-
-                                $mediaToDelete = $record->media()->whereNotIn('file_path', $state)->get();
-                                foreach ($mediaToDelete as $media) {
-                                    Storage::disk('public')->delete($media->file_path);
-                                    $media->delete();
-                                }
-
-                                $existingPaths = $record->media()->pluck('file_path')->toArray();
-                                foreach ($state as $path) {
-                                    if (! in_array($path, $existingPaths)) {
-                                        $record->media()->create(['file_path' => $path]);
-                                    }
-                                }
-                            })
-                            ->saveUploadedFileUsing(function (TemporaryUploadedFile $file): string {
-                                $manager = new ImageManager(new Driver);
-                                $image = $manager->read($file->getRealPath());
-                                $image->scaleDown(width: 1280);
-                                $safeName = Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME));
-                                $filename = 'media/posts/'.$safeName.'---'.Str::random(8).'.webp';
-                                Storage::disk('public')->put($filename, $image->toWebp(80)->toString());
-
-                                return $filename;
-                            }),
+                            ->loadStateFromRelationshipsUsing(fn (?Model $record, $component) => $record ? $component->state($record->media()->pluck('file_path')->toArray()) : null
+                            )
+                            ->saveRelationshipsUsing(fn (Model $record, $state) => app(MediaManager::class)->syncGallery($record, is_array($state) ? $state : [])
+                            )
+                            ->saveUploadedFileUsing(fn (TemporaryUploadedFile $file): string => app(MediaManager::class)->uploadAndOptimize($file, 'media/posts')
+                            ),
                     ]),
             ]);
     }

@@ -28,14 +28,7 @@ class ServiceForm
                             ->label('Enlace')
                             ->required()
                             ->unique(ignoreRecord: true),
-                        TextInput::make('cover_title')->label('Título de Portada'),
-                        RichEditor::make('cover_paragraph')->label('Párrafo de Portada'),
-                    ]),
-
-                Section::make('Información Adicional')
-                    ->schema([
-                        TextInput::make('info_title')->label('Título informativo'),
-                        RichEditor::make('info_paragraph')->label('Párrafo informativo'),
+                        RichEditor::make('description')->label('Descripción'),
                     ]),
             ]);
     }

@@ -12,10 +12,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug')->unique();
-            $table->string('cover_title')->nullable();
-            $table->mediumText('cover_paragraph')->nullable();
-            $table->string('info_title')->nullable();
-            $table->mediumText('info_paragraph')->nullable();
+            $table->mediumText('description')->nullable();
             $table->timestamps();
         });
     }

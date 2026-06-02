@@ -20,6 +20,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             // Generales
             RolesSeeder::class,
+            StaticPageSeeder::class,
+            ServiceSeeder::class,
         ]);
     }
 }

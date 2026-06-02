@@ -18,7 +18,7 @@
 @section('meta-title')
 {!! $cleanTitle !!} : {{ config('app.name') }}
 @endsection
-@section('meta-image'){{ url($page->media->sortBy('name')->last()->url) }}@stop
+@section('meta-image'){{ $page->media->count() > 0 ? url($page->media->first()->url) : '/images/clicksalinas-logotipo.jpg' }}@stop
 @section('meta-type',  'article' )
 {{-- Media Tag Social --}}
 
@@ -46,7 +46,9 @@
   <!-- section IMAGE -->
   <section class="section section-image section_h-800">
     <div class="section-image__wrapper" data-art-parallax="background" data-art-parallax-factor="0.09">
+      @if($page->media && !$page->media->isEmpty())
       <div class="art-parallax__bg lazy-bg" data-src="{{ url($page->media->sortBy('name')->last()->url) }}"></div>
+      @endif
     </div>
   </section>
   <!-- - section IMAGE -->

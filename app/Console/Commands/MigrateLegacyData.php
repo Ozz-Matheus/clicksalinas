@@ -43,10 +43,7 @@ class MigrateLegacyData extends Command
                 'id' => $service->id,
                 'name' => $service->name,
                 'slug' => $service->url, // El mapeo clave para el SEO
-                'cover_title' => $service->cover_title ?? null,
-                'cover_paragraph' => $service->cover_paragraph ?? null,
-                'info_title' => $service->info_title ?? null,
-                'info_paragraph' => $service->info_paragraph ?? null,
+                'description' => $service->cover_paragraph ?? null,
                 'created_at' => $service->created_at,
                 'updated_at' => $service->updated_at,
             ]);
@@ -62,7 +59,7 @@ class MigrateLegacyData extends Command
                 'body' => $album->body ?? null,
                 'published_at' => $album->published_at ?? null,
                 'service_id' => $album->photography_id ?? null, // Mapeo de la llave foránea
-                'user_id' => $album->user_id ?? 1,
+                'user_id' => 2, // Asumimos un usuario por defecto si no existía
                 'created_at' => $album->created_at,
                 'updated_at' => $album->updated_at,
             ]);
@@ -114,7 +111,7 @@ class MigrateLegacyData extends Command
                 'body' => $post->body ?? null,
                 'published_at' => $post->published_at ?? null,
                 'category_id' => $post->category_id,
-                'user_id' => $post->user_id ?? 1,
+                'user_id' => 2, // Asumimos un usuario por defecto si no existía
                 'created_at' => $post->created_at,
                 'updated_at' => $post->updated_at,
             ]);
@@ -180,7 +177,7 @@ class MigrateLegacyData extends Command
                     'id' => $email->id,
                     'name' => $email->name ?? 'Sin nombre',
                     'email' => $email->email ?? 'sin@correo.com',
-                    'phone' => $email->phone ?? '0000000000',
+                    'phone' => $email->phone ?? 'No proporcionado',
                     'message' => $email->message ?? null,
                     'created_at' => $email->created_at ?? now(),
                     'updated_at' => $email->updated_at ?? now(),
@@ -202,7 +199,6 @@ class MigrateLegacyData extends Command
             $staticPagesData = [];
             foreach ($multimediaRecords as $page) {
                 $staticPagesData[] = [
-                    'id' => $page->id,
                     'name' => $page->name ?? 'Página '.$page->id,
                     // Si tu vieja tabla usaba 'url', lo mapeamos a 'slug', si no, lo generamos del nombre
                     'slug' => $page->url ?? Str::slug($page->name ?? 'pagina-'.$page->id),

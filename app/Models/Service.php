@@ -12,10 +12,7 @@ class Service extends Model
     protected $fillable = [
         'name',
         'slug',
-        'cover_title',
-        'cover_paragraph',
-        'info_title',
-        'info_paragraph',
+        'description',
     ];
 
     public function getRouteKeyName(): string
