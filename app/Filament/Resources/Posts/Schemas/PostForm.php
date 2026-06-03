@@ -8,7 +8,6 @@ use App\Services\MediaManager;
 use App\Support\SlugGenerator;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
@@ -24,8 +23,6 @@ class PostForm
     {
         return $schema
             ->components([
-                Hidden::make('user_id')
-                    ->default(fn () => auth()->id()),
 
                 Section::make('Información Principal')
                     ->schema([

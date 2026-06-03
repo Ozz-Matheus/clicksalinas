@@ -2,17 +2,10 @@
 
 namespace App\Filament\Resources\Posts\Pages;
 
+use App\Filament\Pages\BaseCreateRecord;
 use App\Filament\Resources\Posts\PostResource;
-use Filament\Resources\Pages\CreateRecord;
 
-class CreatePost extends CreateRecord
+class CreatePost extends BaseCreateRecord
 {
     protected static string $resource = PostResource::class;
-
-    protected static bool $canCreateAnother = false;
-
-    protected function getRedirectUrl(): string
-    {
-        return $this->getResource()::getUrl('index');
-    }
 }

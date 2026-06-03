@@ -8,7 +8,6 @@ use App\Services\MediaManager;
 use App\Support\SlugGenerator;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -23,9 +22,6 @@ class AlbumForm
     {
         return $schema
             ->components([
-                // Inyectamos el ID del usuario silenciosamente
-                Hidden::make('user_id')
-                    ->default(fn () => auth()->id()),
 
                 Section::make('Detalles de la Sesión')
                     ->schema([

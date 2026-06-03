@@ -2,17 +2,10 @@
 
 namespace App\Filament\Resources\Albums\Pages;
 
+use App\Filament\Pages\BaseCreateRecord;
 use App\Filament\Resources\Albums\AlbumResource;
-use Filament\Resources\Pages\CreateRecord;
 
-class CreateAlbum extends CreateRecord
+class CreateAlbum extends BaseCreateRecord
 {
     protected static string $resource = AlbumResource::class;
-
-    protected static bool $canCreateAnother = false;
-
-    protected function getRedirectUrl(): string
-    {
-        return $this->getResource()::getUrl('index');
-    }
 }
