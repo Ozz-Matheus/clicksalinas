@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Services\Schemas;
 
+use App\Support\SlugGenerator;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Section;
-use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
-use Illuminate\Support\Str;
 
 class ServiceForm
 {
@@ -23,7 +22,7 @@ class ServiceForm
                             ->label('Nombre del Servicio')
                             ->required()
                             ->live(onBlur: true)
-                            ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state ?? ''))),
+                            ->afterStateUpdated(SlugGenerator::update()),
                         TextInput::make('slug')
                             ->label('Enlace')
                             ->required()

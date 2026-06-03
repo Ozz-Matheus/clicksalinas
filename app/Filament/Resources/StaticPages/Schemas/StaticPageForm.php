@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\StaticPages\Schemas;
 
+use App\Support\SlugGenerator;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Section;
-use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -29,7 +29,7 @@ class StaticPageForm
                             ->required()
                             ->maxLength(255)
                             ->live(onBlur: true)
-                            ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state ?? ''))),
+                            ->afterStateUpdated(SlugGenerator::update()),
 
                         TextInput::make('slug')
                             ->label('Enlace')

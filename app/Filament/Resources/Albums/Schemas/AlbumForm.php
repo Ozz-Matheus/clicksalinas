@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Resources\Albums\Schemas;
 
 use App\Services\MediaManager;
+use App\Support\SlugGenerator;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Hidden;
@@ -12,10 +13,8 @@ use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Section;
-use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 
 class AlbumForm
@@ -34,7 +33,7 @@ class AlbumForm
                             ->label('Título del Álbum')
                             ->required()
                             ->live(onBlur: true)
-                            ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state ?? ''))),
+                            ->afterStateUpdated(SlugGenerator::update()),
 
                         TextInput::make('slug')
                             ->label('Enlace')
