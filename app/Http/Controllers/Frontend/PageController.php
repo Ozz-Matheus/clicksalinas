@@ -51,7 +51,6 @@ class PageController extends Controller
             return null;
         }
 
-        // Alta eficiencia: Ordena y trae solo 1 registro directamente desde SQL, no en RAM.
         return $latestAlbum->media()->orderBy('name', 'desc')->first();
     }
 

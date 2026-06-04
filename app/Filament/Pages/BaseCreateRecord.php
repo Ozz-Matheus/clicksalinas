@@ -15,7 +15,6 @@ abstract class BaseCreateRecord extends CreateRecord
         return $this->getResource()::getUrl('index');
     }
 
-    // Inyecta el usuario directamente en backend, de forma segura
     protected function mutateFormDataBeforeCreate(array $data): array
     {
         if (auth()->check()) {

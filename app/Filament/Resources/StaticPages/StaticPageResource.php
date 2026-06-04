@@ -20,7 +20,6 @@ class StaticPageResource extends Resource
 {
     protected static ?string $model = StaticPage::class;
 
-    // Cambiamos el icono a uno más representativo
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedDocumentText;
 
     protected static ?string $recordTitleAttribute = 'name';

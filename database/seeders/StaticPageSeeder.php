@@ -56,8 +56,8 @@ class StaticPageSeeder extends Seeder
 
         foreach ($pages as $page) {
             DB::table('static_pages')->updateOrInsert(
-                ['slug' => $page['slug']], // Condición de búsqueda única
-                $page // Datos a insertar o actualizar
+                ['slug' => $page['slug']],
+                $page
             );
         }
     }

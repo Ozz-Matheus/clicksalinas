@@ -65,8 +65,8 @@ class ServiceSeeder extends Seeder
 
         foreach ($services as $service) {
             DB::table('services')->updateOrInsert(
-                ['slug' => $service['slug']], // Condición de búsqueda única
-                $service // Datos a insertar o actualizar
+                ['slug' => $service['slug']],
+                $service
             );
         }
     }

@@ -18,7 +18,6 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
 
         $this->call([
-            // Generales
             RolesSeeder::class,
             StaticPageSeeder::class,
             ServiceSeeder::class,
