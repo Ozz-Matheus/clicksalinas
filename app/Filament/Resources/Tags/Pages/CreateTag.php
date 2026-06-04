@@ -2,17 +2,10 @@
 
 namespace App\Filament\Resources\Tags\Pages;
 
+use App\Filament\Pages\BaseCreateRecord;
 use App\Filament\Resources\Tags\TagResource;
-use Filament\Resources\Pages\CreateRecord;
 
-class CreateTag extends CreateRecord
+class CreateTag extends BaseCreateRecord
 {
     protected static string $resource = TagResource::class;
-
-    protected static bool $canCreateAnother = false;
-
-    protected function getRedirectUrl(): string
-    {
-        return $this->getResource()::getUrl('index');
-    }
 }

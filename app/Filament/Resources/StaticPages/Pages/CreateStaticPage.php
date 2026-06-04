@@ -2,17 +2,10 @@
 
 namespace App\Filament\Resources\StaticPages\Pages;
 
+use App\Filament\Pages\BaseCreateRecord;
 use App\Filament\Resources\StaticPages\StaticPageResource;
-use Filament\Resources\Pages\CreateRecord;
 
-class CreateStaticPage extends CreateRecord
+class CreateStaticPage extends BaseCreateRecord
 {
     protected static string $resource = StaticPageResource::class;
-
-    protected static bool $canCreateAnother = false;
-
-    protected function getRedirectUrl(): string
-    {
-        return $this->getResource()::getUrl('index');
-    }
 }

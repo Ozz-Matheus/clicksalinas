@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Services\Tables;
 
+use App\Filament\Tables\Columns\TableDefaults;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
@@ -16,16 +17,7 @@ class ServicesTable
                 TextColumn::make('name')
                     ->label('Nombre')
                     ->searchable(),
-                TextColumn::make('created_at')
-                    ->label('Fecha de Creación')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
-                    ->label('Fecha de Actualización')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                ...TableDefaults::timestamps(),
             ])
             ->filters([
                 //

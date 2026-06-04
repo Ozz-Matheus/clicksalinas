@@ -2,17 +2,10 @@
 
 namespace App\Filament\Resources\Users\Pages;
 
+use App\Filament\Pages\BaseCreateRecord;
 use App\Filament\Resources\Users\UserResource;
-use Filament\Resources\Pages\CreateRecord;
 
-class CreateUser extends CreateRecord
+class CreateUser extends BaseCreateRecord
 {
     protected static string $resource = UserResource::class;
-
-    protected static bool $canCreateAnother = false;
-
-    protected function getRedirectUrl(): string
-    {
-        return $this->getResource()::getUrl('index');
-    }
 }

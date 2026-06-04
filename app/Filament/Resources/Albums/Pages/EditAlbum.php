@@ -15,7 +15,7 @@ class EditAlbum extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            Action::make('view')
+            Action::make('preview')
                 ->label('Ver')
                 ->icon(Heroicon::Eye)
                 ->url(fn ($record): string => route('portfolio.album', $record))

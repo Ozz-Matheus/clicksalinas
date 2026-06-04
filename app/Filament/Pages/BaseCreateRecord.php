@@ -17,7 +17,9 @@ abstract class BaseCreateRecord extends CreateRecord
 
     protected function mutateFormDataBeforeCreate(array $data): array
     {
-        if (auth()->check()) {
+        $model = new ($this->getModel());
+
+        if (auth()->check() && $model->isFillable('user_id')) {
             $data['user_id'] = auth()->id();
         }
 
