@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\StaticPages\Schemas;
 
+use App\Services\StaticPageImageService;
 use App\Support\SlugGenerator;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
@@ -11,9 +12,6 @@ use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
-use Intervention\Image\Drivers\Gd\Driver;
-use Intervention\Image\ImageManager;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 
 class StaticPageForm
@@ -50,19 +48,8 @@ class StaticPageForm
                             ->image()
                             ->disk('public')
                             ->columnSpanFull()
-                            ->deleteUploadedFileUsing(function (string $file) {
-                                Storage::disk('public')->delete($file);
-                            })
-                            ->saveUploadedFileUsing(function (TemporaryUploadedFile $file): string {
-                                $manager = new ImageManager(new Driver);
-                                $image = $manager->read($file->getRealPath());
-                                $image->scaleDown(width: 2000);
-
-                                $filename = 'static_pages/covers/'.Str::random(40).'.webp';
-                                Storage::disk('public')->put($filename, $image->toWebp(80)->toString());
-
-                                return $filename;
-                            }),
+                            ->deleteUploadedFileUsing(fn (string $file) => Storage::disk('public')->delete($file))
+                            ->saveUploadedFileUsing(fn (TemporaryUploadedFile $file) => app(StaticPageImageService::class)->storeCover($file)),
                     ]),
 
                 Section::make('Información Adicional')
@@ -83,19 +70,8 @@ class StaticPageForm
                             ->panelLayout('grid')
                             ->disk('public')
                             ->columnSpanFull()
-                            ->deleteUploadedFileUsing(function (string $file) {
-                                Storage::disk('public')->delete($file);
-                            })
-                            ->saveUploadedFileUsing(function (TemporaryUploadedFile $file): string {
-                                $manager = new ImageManager(new Driver);
-                                $image = $manager->read($file->getRealPath());
-                                $image->scaleDown(width: 1280);
-
-                                $filename = 'static_pages/galleries/'.Str::random(40).'.webp';
-                                Storage::disk('public')->put($filename, $image->toWebp(80)->toString());
-
-                                return $filename;
-                            }),
+                            ->deleteUploadedFileUsing(fn (string $file) => Storage::disk('public')->delete($file))
+                            ->saveUploadedFileUsing(fn (TemporaryUploadedFile $file) => app(StaticPageImageService::class)->storeGallery($file)),
                     ]),
             ]);
     }

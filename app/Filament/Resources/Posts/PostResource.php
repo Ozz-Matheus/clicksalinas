@@ -73,14 +73,10 @@ class PostResource extends Resource
 
     public static function getEloquentQuery(): Builder
     {
-        $query = parent::getEloquentQuery();
-
-        // Filament Shield crea el rol 'super_admin' por defecto.
-        // Si el usuario NO es super admin, solo cargamos los posts que le pertenecen.
-        if (! auth()->user()->hasRole('super_admin')) {
-            $query->where('user_id', auth()->id());
-        }
-
-        return $query;
+        return parent::getEloquentQuery()
+            ->with(['category', 'owner'])
+            ->when(! auth()->user()->hasRole('super_admin'), function ($query) {
+                $query->where('user_id', auth()->id());
+            });
     }
 }
