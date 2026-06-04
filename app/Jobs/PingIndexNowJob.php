@@ -3,9 +3,8 @@
 namespace App\Jobs;
 
 use App\Services\IndexNowService;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
-class PingIndexNowJob implements ShouldQueue
+class PingIndexNowJob
 {
     public function __construct(public string $url) {}
 

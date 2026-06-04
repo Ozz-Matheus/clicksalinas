@@ -30,7 +30,7 @@ class PingSearchEnginesAction
 
         // 3. Despachamos el trabajo si obtuvimos una URL válida
         if ($url) {
-            dispatch(new PingIndexNowJob($url));
+            dispatch(new PingIndexNowJob($url))->afterResponse();
         }
     }
 }
