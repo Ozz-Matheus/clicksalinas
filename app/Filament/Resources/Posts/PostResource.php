@@ -64,8 +64,6 @@ class PostResource extends Resource
     {
         return parent::getEloquentQuery()
             ->with(['category', 'owner'])
-            ->when(! auth()->user()->hasRole('super_admin'), function ($query) {
-                $query->where('user_id', auth()->id());
-            });
+            ->visibleTo(auth()->user());
     }
 }

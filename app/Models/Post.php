@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Jobs\PingIndexNowJob;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -66,5 +67,12 @@ class Post extends Model
     public function owner(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function scopeVisibleTo(Builder $query, User $user): void
+    {
+        if (! $user->hasRole('super_admin')) {
+            $query->where('user_id', $user->id);
+        }
     }
 }
