@@ -20,38 +20,30 @@ class PageController extends Controller
         $page = StaticPage::where('slug', 'home')->firstOrFail();
         $cover = $page->cover_image_path ? 'storage/'.$page->cover_image_path : null;
 
+        // 1. Cargamos todos los servicios requeridos y sus relaciones en solo 2 queries.
+        $services = Service::query()
+            ->whereIn('slug', ['weddings', 'photoshoot', 'commercials'])
+            ->with(['latestPublishedAlbum.media'])
+            ->get()
+            ->keyBy('slug');
+
+        // 2. Extraemos las variables evitando consultas adicionales a la BD.
+        $weddingService = $services->get('weddings');
+        $photoshootService = $services->get('photoshoot');
+        $commercialService = $services->get('commercials');
+
         $featured_images = (object) [
-            'weddingUrl' => Service::where('slug', 'weddings')->first(),
-            'weddingLast' => $this->getLatestMediaFor('weddings'),
-            'photoshootUrl' => Service::where('slug', 'photoshoot')->first(),
-            'photoshootLast' => $this->getLatestMediaFor('photoshoot'),
-            'commercialUrl' => Service::where('slug', 'commercials')->first(),
-            'commercialLast' => $this->getLatestMediaFor('commercials'),
+            'weddingUrl' => $weddingService,
+            'weddingLast' => $weddingService?->latestPublishedAlbum?->media->sortByDesc('name')->first(),
+
+            'photoshootUrl' => $photoshootService,
+            'photoshootLast' => $photoshootService?->latestPublishedAlbum?->media->sortByDesc('name')->first(),
+
+            'commercialUrl' => $commercialService,
+            'commercialLast' => $commercialService?->latestPublishedAlbum?->media->sortByDesc('name')->first(),
         ];
 
         return view('pages', compact('page', 'cover', 'featured_images'));
-    }
-
-    /**
-     * Obtiene los últimos medios para un servicio específico
-     */
-    private function getLatestMediaFor(string $serviceSlug)
-    {
-        $service = Service::where('slug', $serviceSlug)->first();
-        if (! $service) {
-            return null;
-        }
-
-        $latestAlbum = $service->albums()
-            ->where('published_at', '<=', now())
-            ->latest('published_at')
-            ->first();
-
-        if (! $latestAlbum) {
-            return null;
-        }
-
-        return $latestAlbum->media()->orderBy('name', 'desc')->first();
     }
 
     /**
@@ -60,10 +52,7 @@ class PageController extends Controller
     public function about(): View
     {
         $page = StaticPage::where('slug', 'about')->firstOrFail();
-
-        $cover = $page->cover_image_path
-            ? Storage::url($page->cover_image_path)
-            : null;
+        $cover = $page->cover_image_path ? Storage::url($page->cover_image_path) : null;
 
         return view('pages', compact('page', 'cover'));
     }

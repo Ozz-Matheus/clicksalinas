@@ -29,4 +29,14 @@ class Service extends Model
     {
         return $this->slug;
     }
+
+    /**
+     * Obtiene el último álbum publicado para este servicio.
+     */
+    public function latestPublishedAlbum()
+    {
+        return $this->hasOne(Album::class)
+            ->where('published_at', '<=', now())
+            ->latestOfMany('published_at');
+    }
 }
