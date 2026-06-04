@@ -18,7 +18,7 @@ class PageController extends Controller
     public function index(): View
     {
         $page = StaticPage::where('slug', 'home')->firstOrFail();
-        $cover = $page->cover_image_path ? 'storage/'.$page->cover_image_path : null;
+        $cover = $page->cover_image_path ? $page->cover_image_path : null;
 
         // 1. Cargamos todos los servicios requeridos y sus relaciones en solo 2 queries.
         $services = Service::query()
