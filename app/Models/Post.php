@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Jobs\PingIndexNowJob;
+use App\Actions\PingSearchEnginesAction;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -39,13 +39,7 @@ class Post extends Model
     protected static function booted(): void
     {
         static::saved(function (self $model) {
-            if ($model->published_at && $model->published_at <= now() && ! empty($model->slug)) {
-                $url = $model instanceof Post
-                    ? route('blog.show', $model->slug)
-                    : route('portfolio.album', $model->slug);
-
-                dispatch(new PingIndexNowJob($url));
-            }
+            app(PingSearchEnginesAction::class)->execute($model);
         });
     }
 
