@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Posts\Schemas;
 
+use App\Filament\Forms\Components\GalleryUpload;
 use App\Support\SlugGenerator;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\RichEditor;
