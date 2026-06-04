@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Actions\PingSearchEnginesAction;
+use App\Contracts\Indexable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
-class Post extends Model
+class Post extends Model implements Indexable
 {
     protected $fillable = [
         'title',
@@ -68,5 +69,10 @@ class Post extends Model
         if (! $user->hasRole('super_admin')) {
             $query->where('user_id', $user->id);
         }
+    }
+
+    public function getIndexableUrl(): string
+    {
+        return route('blog.show', $this->slug);
     }
 }
