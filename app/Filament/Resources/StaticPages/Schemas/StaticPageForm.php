@@ -48,6 +48,12 @@ class StaticPageForm
                             ->image()
                             ->disk('public')
                             ->columnSpanFull()
+                            ->maxSize(2048) // Límite de 2MB
+                            ->acceptedFileTypes([
+                                'image/jpeg',
+                                'image/png',
+                                'image/webp',
+                            ])
                             ->deleteUploadedFileUsing(fn (string $file) => Storage::disk('public')->delete($file))
                             ->saveUploadedFileUsing(fn (TemporaryUploadedFile $file) => app(StaticPageImageService::class)->storeCover($file)),
                     ]),
@@ -70,6 +76,12 @@ class StaticPageForm
                             ->panelLayout('grid')
                             ->disk('public')
                             ->columnSpanFull()
+                            ->maxSize(2048) // Límite de 2MB
+                            ->acceptedFileTypes([
+                                'image/jpeg',
+                                'image/png',
+                                'image/webp',
+                            ])
                             ->deleteUploadedFileUsing(fn (string $file) => Storage::disk('public')->delete($file))
                             ->saveUploadedFileUsing(fn (TemporaryUploadedFile $file) => app(StaticPageImageService::class)->storeGallery($file)),
                     ]),

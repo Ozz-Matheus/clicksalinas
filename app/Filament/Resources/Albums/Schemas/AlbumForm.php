@@ -64,6 +64,12 @@ class AlbumForm
                             ->disk('public')
                             ->columnSpanFull()
                             ->dehydrated(false)
+                            ->maxSize(2048) // Límite de 2MB
+                            ->acceptedFileTypes([
+                                'image/jpeg',
+                                'image/png',
+                                'image/webp',
+                            ])
                             ->loadStateFromRelationshipsUsing(fn (?Model $record, $component) => $record ? $component->state($record->media()->pluck('file_path')->toArray()) : null
                             )
                             ->saveRelationshipsUsing(fn (Model $record, $state) => app(MediaManager::class)->syncGallery($record, is_array($state) ? $state : [])
