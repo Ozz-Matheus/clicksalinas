@@ -24,20 +24,11 @@ class ServiceResource extends Resource
 
     protected static ?int $navigationSort = 3;
 
-    public static function getModelLabel(): string
-    {
-        return 'Servicio';
-    }
+    protected static ?string $modelLabel = 'Servicio';
 
-    public static function getPluralModelLabel(): string
-    {
-        return 'Servicios';
-    }
+    protected static ?string $pluralModelLabel = 'Servicios';
 
-    public static function getNavigationLabel(): string
-    {
-        return 'Servicios';
-    }
+    protected static ?string $navigationLabel = 'Servicios';
 
     public static function form(Schema $schema): Schema
     {

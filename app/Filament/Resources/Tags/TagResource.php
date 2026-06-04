@@ -13,6 +13,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class TagResource extends Resource
 {
@@ -24,25 +25,13 @@ class TagResource extends Resource
 
     protected static ?int $navigationSort = 7;
 
-    public static function getModelLabel(): string
-    {
-        return 'Etiqueta';
-    }
+    protected static ?string $modelLabel = 'Etiqueta';
 
-    public static function getPluralModelLabel(): string
-    {
-        return 'Etiquetas';
-    }
+    protected static ?string $pluralModelLabel = 'Etiquetas';
 
-    public static function getNavigationLabel(): string
-    {
-        return 'Etiquetas';
-    }
+    protected static ?string $navigationLabel = 'Etiquetas';
 
-    public static function getNavigationGroup(): string
-    {
-        return 'Gestión del Blog';
-    }
+    protected static UnitEnum|string|null $navigationGroup = 'Gestión de Blog';
 
     public static function form(Schema $schema): Schema
     {

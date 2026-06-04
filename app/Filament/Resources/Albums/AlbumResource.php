@@ -25,20 +25,11 @@ class AlbumResource extends Resource
 
     protected static ?int $navigationSort = 1;
 
-    public static function getModelLabel(): string
-    {
-        return 'Álbum';
-    }
+    protected static ?string $modelLabel = 'Álbum';
 
-    public static function getPluralModelLabel(): string
-    {
-        return 'Álbumes';
-    }
+    protected static ?string $pluralModelLabel = 'Álbumes';
 
-    public static function getNavigationLabel(): string
-    {
-        return 'Álbumes';
-    }
+    protected static ?string $navigationLabel = 'Álbumes';
 
     public static function form(Schema $schema): Schema
     {

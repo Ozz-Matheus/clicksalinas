@@ -14,6 +14,7 @@ use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use UnitEnum;
 
 class PostResource extends Resource
 {
@@ -25,25 +26,13 @@ class PostResource extends Resource
 
     protected static ?int $navigationSort = 5;
 
-    public static function getModelLabel(): string
-    {
-        return 'Publicación';
-    }
+    protected static ?string $modelLabel = 'Publicación';
 
-    public static function getPluralModelLabel(): string
-    {
-        return 'Publicaciones';
-    }
+    protected static ?string $pluralModelLabel = 'Publicaciones';
 
-    public static function getNavigationLabel(): string
-    {
-        return 'Publicaciones';
-    }
+    protected static ?string $navigationLabel = 'Publicaciones';
 
-    public static function getNavigationGroup(): string
-    {
-        return 'Gestión del Blog';
-    }
+    protected static UnitEnum|string|null $navigationGroup = 'Gestión de Blog';
 
     public static function form(Schema $schema): Schema
     {

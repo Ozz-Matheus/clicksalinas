@@ -27,20 +27,11 @@ class StaticPageResource extends Resource
 
     protected static ?int $navigationSort = 2;
 
-    public static function getModelLabel(): string
-    {
-        return 'Página';
-    }
+    protected static ?string $modelLabel = 'Página Estática';
 
-    public static function getPluralModelLabel(): string
-    {
-        return 'Páginas';
-    }
+    protected static ?string $pluralModelLabel = 'Páginas Estáticas';
 
-    public static function getNavigationLabel(): string
-    {
-        return 'Páginas';
-    }
+    protected static ?string $navigationLabel = 'Páginas Estáticas';
 
     public static function form(Schema $schema): Schema
     {

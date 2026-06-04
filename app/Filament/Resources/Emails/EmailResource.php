@@ -24,20 +24,11 @@ class EmailResource extends Resource
 
     protected static ?int $navigationSort = 4;
 
-    public static function getModelLabel(): string
-    {
-        return 'Mensaje de Contacto';
-    }
+    protected static ?string $modelLabel = 'Mensaje de Contacto';
 
-    public static function getPluralModelLabel(): string
-    {
-        return 'Mensaje de Contactos';
-    }
+    protected static ?string $pluralModelLabel = 'Mensajes de Contacto';
 
-    public static function getNavigationLabel(): string
-    {
-        return 'Buzón de Contacto';
-    }
+    protected static ?string $navigationLabel = 'Buzón de Contacto';
 
     public static function infolist(Schema $schema): Schema
     {
