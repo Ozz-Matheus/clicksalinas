@@ -6,6 +6,7 @@ namespace App\Models;
 
 use App\Actions\PingSearchEnginesAction;
 use App\Contracts\Indexable;
+use App\Traits\IsPublished;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -13,6 +14,8 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Album extends Model implements Indexable
 {
+    use IsPublished;
+
     protected $fillable = [
         'title',
         'slug',

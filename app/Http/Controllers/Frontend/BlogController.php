@@ -15,8 +15,7 @@ class BlogController extends Controller
     public function index(): View
     {
         $posts = Post::with(['category', 'tags', 'media'])
-            ->whereNotNull('published_at')
-            ->where('published_at', '<=', now())
+            ->published()
             ->latest('published_at')
             ->paginate(14);
 
@@ -25,8 +24,7 @@ class BlogController extends Controller
 
     public function show(Post $post): View
     {
-        $isPublished = $post->published_at && $post->published_at <= now();
-        abort_if(! $isPublished && ! auth()->check(), 404);
+        abort_if(! $post->isPublished() && ! auth()->check(), 404);
 
         $post->load(['category', 'tags', 'media']);
 
@@ -37,8 +35,7 @@ class BlogController extends Controller
     {
         $posts = $category->posts()
             ->with(['category', 'tags', 'media'])
-            ->whereNotNull('published_at')
-            ->where('published_at', '<=', now())
+            ->published()
             ->latest('published_at')
             ->paginate(12);
 
@@ -49,8 +46,7 @@ class BlogController extends Controller
     {
         $posts = $tag->posts()
             ->with(['category', 'tags', 'media'])
-            ->whereNotNull('published_at')
-            ->where('published_at', '<=', now())
+            ->published()
             ->latest('published_at')
             ->paginate(12);
 

@@ -24,8 +24,7 @@ class PortfolioController extends Controller
         // Usamos Eager Loading (with('media')) para evitar lentitud al cargar las portadas.
         $albums = $service->albums()
             ->with('media')
-            ->whereNotNull('published_at')
-            ->where('published_at', '<=', now())
+            ->published()
             ->latest('published_at')
             ->paginate(12);
 
@@ -42,8 +41,7 @@ class PortfolioController extends Controller
     public function album(Album $album): View
     {
         // 1. Solo se ve si está publicado O si eres el admin logueado
-        $isPublished = $album->published_at && $album->published_at <= now();
-        abort_if(! $isPublished && ! auth()->check(), 404);
+        abort_if(! $album->isPublished() && ! auth()->check(), 404);
 
         // 2. Cargamos las fotos asociadas para no saturar la base de datos
         $album->load('media');

@@ -36,7 +36,7 @@ class Service extends Model
     public function latestPublishedAlbum()
     {
         return $this->hasOne(Album::class)
-            ->where('published_at', '<=', now())
+            ->published()
             ->latestOfMany('published_at');
     }
 }
