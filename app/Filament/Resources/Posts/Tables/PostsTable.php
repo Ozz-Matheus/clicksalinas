@@ -2,11 +2,10 @@
 
 namespace App\Filament\Resources\Posts\Tables;
 
+use App\Filament\Actions\PreviewAction;
 use App\Filament\Tables\Columns\TableDefaults;
-use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\EditAction;
-use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
@@ -43,11 +42,7 @@ class PostsTable
                 //
             ])
             ->recordActions([
-                Action::make('preview')
-                    ->label('Ver')
-                    ->icon(Heroicon::Eye)
-                    ->url(fn ($record): string => route('blog.show', $record))
-                    ->openUrlInNewTab(),
+                PreviewAction::make(),
                 EditAction::make(),
             ])
             ->toolbarActions([

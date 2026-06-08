@@ -2,11 +2,10 @@
 
 namespace App\Filament\Resources\Albums\Tables;
 
+use App\Filament\Actions\PreviewAction;
 use App\Filament\Tables\Columns\TableDefaults;
-use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\EditAction;
-use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
@@ -43,11 +42,7 @@ class AlbumsTable
                     ->relationship('service', 'name'),
             ])
             ->recordActions([
-                Action::make('preview')
-                    ->label('Ver')
-                    ->icon(Heroicon::Eye)
-                    ->url(fn ($record): string => route('portfolio.album', $record))
-                    ->openUrlInNewTab(),
+                PreviewAction::make(),
                 EditAction::make(),
             ])
             ->toolbarActions([
