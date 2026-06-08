@@ -48,7 +48,7 @@ Para mantener la estabilidad y escalabilidad del sistema, el desarrollo debe reg
 
 ### Estructura Principal
 * `app/Filament/Resources/`: Separación estricta por recurso (Pages, Schemas, Tables).
-* `app/Services/`: Lógica compleja y reutilizable (ej. `MediaManager`, `IndexNowService`).
+* `app/Services/`: Lógica compleja y reutilizable (ej. `IndexNowService`).
 * `app/Policies/`: Gestión centralizada de permisos y accesos.
 
 ### Reglas de Implementación

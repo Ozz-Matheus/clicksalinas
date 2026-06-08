@@ -1,8 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Forms\Components;
 
-use App\Services\MediaManager;
+use App\Actions\SyncModelGalleryAction;
+use App\Services\ImageOptimizationService;
 use Filament\Forms\Components\FileUpload;
 use Illuminate\Database\Eloquent\Model;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
@@ -23,11 +26,14 @@ class GalleryUpload
             ->dehydrated(false)
             ->maxSize(2048)
             ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
-            ->loadStateFromRelationshipsUsing(fn (?Model $record, $component) => $record ? $component->state($record->media()->pluck('file_path')->toArray()) : null
+            ->loadStateFromRelationshipsUsing(
+                fn (?Model $record, $component) => $record ? $component->state($record->media()->pluck('file_path')->toArray()) : null
             )
-            ->saveRelationshipsUsing(fn (Model $record, $state) => app(MediaManager::class)->syncGallery($record, is_array($state) ? $state : [])
+            ->saveRelationshipsUsing(
+                fn (Model $record, $state) => app(SyncModelGalleryAction::class)->execute($record, is_array($state) ? $state : [])
             )
-            ->saveUploadedFileUsing(fn (TemporaryUploadedFile $file): string => app(MediaManager::class)->uploadAndOptimize($file, $directory)
+            ->saveUploadedFileUsing(
+                fn (TemporaryUploadedFile $file): string => app(ImageOptimizationService::class)->optimizeAndStore($file, $directory)
             );
     }
 }
