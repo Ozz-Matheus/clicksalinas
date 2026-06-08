@@ -1,0 +1,10 @@
+{
+    "agents": [
+        "copilot"
+    ],
+    "cloud": false,
+    "guidelines": true,
+    "packages": [
+        "filament/filament"
+    ]
+}
