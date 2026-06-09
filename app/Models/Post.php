@@ -45,6 +45,10 @@ class Post extends Model implements Indexable
         static::saved(function (self $model) {
             app(PingSearchEnginesAction::class)->execute($model);
         });
+
+        static::deleting(function (self $model) {
+            $model->media->each->delete();
+        });
     }
 
     public function category(): BelongsTo
