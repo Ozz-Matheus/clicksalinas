@@ -79,7 +79,6 @@ Route::get('tags/{tag:slug}', [BlogController::class, 'tag'])->name('blog.tag');
 // Reset...
 Route::get('clear', function () {
 
-    Artisan::call('debugbar:clear');
     Artisan::call('view:clear');
     Artisan::call('route:clear');
     Artisan::call('config:clear');
