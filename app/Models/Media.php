@@ -6,6 +6,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -42,8 +43,10 @@ class Media extends Model
         // Interceptamos el momento exacto en que el registro es destruido en la BD
         static::deleted(function (self $media) {
             if (! empty($media->file_path)) {
-                // Eliminación directa en el disco público
-                Storage::disk('public')->delete($media->file_path);
+                // Aseguramos que solo se borre si la transacción SQL es exitosa
+                DB::afterCommit(function () use ($media) {
+                    Storage::disk('public')->delete($media->file_path);
+                });
             }
         });
 
