@@ -11,7 +11,9 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        //
+        $middleware->preventRequestForgery(except: [
+            'webhooks/bold', // <-- Excluye la ruta del webhook de la validación CSRF
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

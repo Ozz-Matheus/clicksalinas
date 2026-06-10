@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Frontend\BlogController;
+use App\Http\Controllers\Frontend\BoldWebhookController;
+use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\ContactController;
 use App\Http\Controllers\Frontend\PageController;
 use App\Http\Controllers\Frontend\PortfolioController;
@@ -49,6 +51,15 @@ Route::get('photographs/{service:slug}', [PortfolioController::class, 'service']
 // Un álbum o sesión fotográfica (Ej: /photography/laura-julian)
 Route::get('photography/{album:slug}', [PortfolioController::class, 'album'])->name('portfolio.album');
 
+/*
+|--------------------------------------------------------------------------
+| Checkout / Pagos
+|--------------------------------------------------------------------------
+*/
+Route::get('checkout', [CheckoutController::class, 'show'])->name('checkout.show');
+Route::post('checkout', [CheckoutController::class, 'process'])->name('checkout.process');
+Route::get('checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
+Route::post('webhooks/bold', [BoldWebhookController::class, 'handle'])->name('webhooks.bold');
 /*
 |--------------------------------------------------------------------------
 | Blog

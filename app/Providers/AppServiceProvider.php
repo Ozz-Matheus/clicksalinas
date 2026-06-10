@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Services\BoldPaymentService;
 use Filament\Tables\Columns\Column;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
@@ -13,7 +14,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->bind(BoldPaymentService::class, function ($app) {
+            return new BoldPaymentService(
+                config('services.bold.api_key'),
+                config('services.bold.endpoint')
+            );
+        });
     }
 
     /**

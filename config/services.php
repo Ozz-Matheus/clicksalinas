@@ -39,4 +39,11 @@ return [
         'secret' => env('RECAPTCHA_SECRET_KEY'),
         'site' => env('RECAPTCHA_SITE_KEY'),
     ],
+
+    'bold' => [
+        'api_key' => env('BOLD_API_KEY'),
+        'endpoint' => env('BOLD_ENDPOINT', 'https://api.online.payments.bold.co/v1'),
+        'webhook_secret' => env('BOLD_WEBHOOK_SECRET', ''),
+    ],
+
 ];
