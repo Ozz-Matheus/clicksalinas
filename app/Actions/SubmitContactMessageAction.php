@@ -14,34 +14,37 @@ class SubmitContactMessageAction
 {
     /**
      * Ejecuta el guardado del mensaje y el envío del correo de forma segura.
+     *
+     * @param array{
+     * name: string,
+     * email: string,
+     * phone?: string|null,
+     * message: string,
+     * 'g-recaptcha-response'?: string
+     * } $data
      */
     public function execute(array $data): Email
     {
-        // Normalizamos el teléfono
         $phone = $data['phone'] ?? null;
-
-        $data['phone'] = filled($phone)
-            ? $phone
-            : 'No proporcionado';
+        $data['phone'] = filled($phone) ? $phone : 'No proporcionado';
 
         // Guardamos el mensaje en base de datos
         $emailRecord = Email::create($data);
 
         // Intentamos enviar el correo sin romper la experiencia del usuario
         try {
-            Mail::to($data['email'], $data['name'])
-                ->bcc('hi@clicksalinas.com', config('app.name'))
-                ->send(new Contact($data));
+            // Obtenemos el correo desde la configuración (por defecto fallback al de admin)
+            $adminEmail = config('mail.from.address', 'hi@clicksalinas.com');
 
+            Mail::to($data['email'], $data['name'])
+                ->bcc($adminEmail, config('app.name'))
+                ->send(new Contact($data));
         } catch (Throwable $e) {
-            Log::error(
-                'Fallo al enviar el correo de contacto',
-                [
-                    'exception' => $e,
-                    'email_record_id' => $emailRecord->id,
-                    'client_email' => $data['email'],
-                ]
-            );
+            Log::error('Fallo al enviar el correo de contacto', [
+                'email_record_id' => $emailRecord->id,
+                'client_email' => $data['email'],
+                'exception' => $e->getMessage(),
+            ]);
         }
 
         return $emailRecord;
