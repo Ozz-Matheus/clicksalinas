@@ -31,10 +31,10 @@ class GalleryUpload
                 fn (?Model $record, $component) => $record ? $component->state($record->media()->pluck('file_path')->toArray()) : null
             )
             ->saveRelationshipsUsing(
-                fn (Model $record, $state) => app(SyncModelGalleryAction::class)->execute($record, is_array($state) ? $state : [])
+                fn (Model $record, $state, SyncModelGalleryAction $action) => $action->execute($record, is_array($state) ? $state : [])
             )
             ->saveUploadedFileUsing(
-                fn (TemporaryUploadedFile $file): string => app(ImageOptimizationService::class)->optimizeAndStore($file, $directory)
+                fn (TemporaryUploadedFile $file, ImageOptimizationService $optimizer): string => $optimizer->optimizeAndStore($file, $directory)
             );
     }
 }
