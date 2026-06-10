@@ -17,20 +17,16 @@ class SitemapController extends Controller
      */
     public function index(): Response
     {
-        // 1. Páginas de Servicios (Money Pages)
-        $services = Service::all();
+        $xml = cache()->remember('sitemap.xml', now()->addHours(12), function () {
+            $services = Service::all();
+            $albums = Album::published()->latest('published_at')->get();
+            $posts = Post::published()->latest('published_at')->get();
+            $vipSlugs = config('seo.vip_tags') ?? [];
+            $highValueTags = Tag::whereIn('slug', $vipSlugs)->get()->unique('slug');
 
-        // 2. Álbumes o sesiones fotográficas individuales publicados
-        $albums = Album::published()->latest('published_at')->get();
+            return view('sitemap', compact('services', 'albums', 'posts', 'highValueTags'))->render();
+        });
 
-        // 3. Artículos del Blog publicados
-        $posts = Post::published()->latest('published_at')->get();
-
-        // 4. Etiquetas estratégicas de alto valor (VIP)
-        $vipSlugs = config('seo.vip_tags') ?? [];
-        $highValueTags = Tag::whereIn('slug', $vipSlugs)->get()->unique('slug');
-
-        return response()->view('sitemap', compact('services', 'albums', 'posts', 'highValueTags'))
-            ->header('Content-Type', 'text/xml');
+        return response($xml)->header('Content-Type', 'text/xml');
     }
 }
