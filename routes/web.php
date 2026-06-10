@@ -5,7 +5,6 @@ use App\Http\Controllers\Frontend\ContactController;
 use App\Http\Controllers\Frontend\PageController;
 use App\Http\Controllers\Frontend\PortfolioController;
 use App\Http\Controllers\SitemapController;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -75,16 +74,3 @@ Route::redirect('/tags/cartagena', '/tags/cartagena-de-indias', 301);
 
 // Tags
 Route::get('tags/{tag:slug}', [BlogController::class, 'tag'])->name('blog.tag');
-
-// Reset...
-Route::get('clear', function () {
-
-    Artisan::call('view:clear');
-    Artisan::call('route:clear');
-    Artisan::call('config:clear');
-    Artisan::call('cache:clear');
-    Artisan::call('config:cache');
-
-    return redirect('/#clear');
-
-})->name('clear');
