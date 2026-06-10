@@ -15,7 +15,7 @@ use Throwable;
 
 class ImageOptimizationService
 {
-    public function optimizeAndStore(TemporaryUploadedFile $file, string $directory): string
+    public function optimizeAndStore(TemporaryUploadedFile $file, string $directory, string $fieldName = 'gallery_uploads'): string
     {
         try {
             $manager = new ImageManager(new Driver);
@@ -37,7 +37,7 @@ class ImageOptimizationService
             ]);
 
             throw ValidationException::withMessages([
-                'gallery_uploads' => "No se pudo procesar la imagen {$file->getClientOriginalName()}. Verifica el formato o intenta de nuevo.",
+                $fieldName => "No se pudo procesar la imagen {$file->getClientOriginalName()}. Verifica el formato o intenta de nuevo.",
             ]);
         }
     }
