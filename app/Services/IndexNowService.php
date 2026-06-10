@@ -6,6 +6,7 @@ namespace App\Services;
 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Throwable;
 
 class IndexNowService
 {
@@ -35,7 +36,7 @@ class IndexNowService
                 'urlList' => [$url],
             ]);
 
-        } catch (\Exception $e) {
+        } catch (Throwable $e) {
             Log::error('IndexNow Error: '.$e->getMessage());
         }
     }

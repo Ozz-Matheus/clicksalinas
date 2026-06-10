@@ -6,6 +6,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Service extends Model
 {
@@ -33,7 +34,7 @@ class Service extends Model
     /**
      * Obtiene el último álbum publicado para este servicio.
      */
-    public function latestPublishedAlbum()
+    public function latestPublishedAlbum(): HasOne
     {
         return $this->hasOne(Album::class)
             ->published()
