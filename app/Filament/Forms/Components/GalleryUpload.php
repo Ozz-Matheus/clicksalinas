@@ -22,6 +22,7 @@ class GalleryUpload
             ->image()
             ->directory($directory)
             ->disk('public')
+            ->visibility('public')
             ->columnSpanFull()
             ->dehydrated(false)
             ->maxSize(2048)

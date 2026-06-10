@@ -47,6 +47,7 @@ class StaticPageForm
                             ->label('Imagen de Portada')
                             ->image()
                             ->disk('public')
+                            ->visibility('public')
                             ->columnSpanFull()
                             ->maxSize(2048) // Límite de 2MB
                             ->acceptedFileTypes([
@@ -75,6 +76,7 @@ class StaticPageForm
                             ->appendFiles()
                             ->panelLayout('grid')
                             ->disk('public')
+                            ->visibility('public')
                             ->columnSpanFull()
                             ->maxSize(2048) // Límite de 2MB
                             ->acceptedFileTypes([
