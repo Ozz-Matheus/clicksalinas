@@ -18,8 +18,8 @@ class StoreN8nPostRequest extends FormRequest
         return [
             'title' => ['required', 'string', 'max:255'],
             'excerpt' => ['nullable', 'string'],
-            'body' => ['required', 'string'],
-            'category_slug' => ['required', 'string', 'exists:categories,slug'],
+            'body' => ['nullable', 'string'],
+            'category_slug' => ['nullable', 'string'],
             'tags' => ['nullable', 'array'],
             'tags.*' => ['string'],
             'published_at' => ['nullable', 'date'],

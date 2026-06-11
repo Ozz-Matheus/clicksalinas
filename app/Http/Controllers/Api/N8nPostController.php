@@ -19,7 +19,10 @@ class N8nPostController extends Controller
         $validated = $request->validated();
 
         // 1. Resolver la categoría
-        $category = Category::where('slug', $validated['category_slug'])->firstOrFail();
+        $category = null;
+        if (! empty($validated['category_slug'])) {
+            $category = Category::where('slug', $validated['category_slug'])->first();
+        }
 
         // 2. Generar el Slug base y asegurar que sea único
         $baseSlug = Str::slug($validated['title']);
@@ -34,8 +37,8 @@ class N8nPostController extends Controller
             'title' => $validated['title'],
             'slug' => $slug,
             'excerpt' => $validated['excerpt'] ?? null,
-            'body' => $validated['body'],
-            'category_id' => $category->id,
+            'body' => $validated['body'] ?? null,
+            'category_id' => $category?->id,
             'user_id' => $validated['user_id'] ?? 2, // Fallback al Super Admin
             'published_at' => $validated['published_at'] ?? now(),
         ]);
