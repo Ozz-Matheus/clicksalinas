@@ -46,4 +46,7 @@ return [
         'webhook_secret' => env('BOLD_WEBHOOK_SECRET', ''),
     ],
 
+    'n8n' => [
+        'token' => env('N8N_API_TOKEN'),
+    ],
 ];
