@@ -126,7 +126,7 @@
               <div class="figure-contact__icon material-icons">
                 <li class="fa fa-comments"></li>
               </div>
-              <div class="figure-contact__item"><a href="https://www.messenger.com/t/clicksalinas16" target="_blank" rel="noopener">Messenger</a></div>
+              <div class="figure-contact__item"><a href="https://www.messenger.com/t/clicksalinas.photo" target="_blank" rel="noopener">Messenger</a></div>
             </div>
           </div>
         </div>
