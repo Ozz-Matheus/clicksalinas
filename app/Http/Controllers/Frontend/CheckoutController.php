@@ -34,14 +34,13 @@ class CheckoutController extends Controller
         $service = Service::findOrFail($validated['service_id']);
 
         $reference = 'RES-'.Str::upper(Str::random(10));
-        $advanceAmount = 50000;
+        $advanceAmount = $service->deposit_amount;
 
         $reservation = Reservation::create([
             'reference' => $reference,
             'service_id' => $service->id,
             'name' => $validated['name'],
             'email' => $validated['email'],
-            'phone' => $validated['phone'],
             'amount' => $advanceAmount,
             'status' => 'pending',
         ]);

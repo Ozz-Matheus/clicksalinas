@@ -17,7 +17,6 @@ return new class extends Migration
             $table->foreignId('service_id')->constrained()->cascadeOnDelete();
             $table->string('name');
             $table->string('email');
-            $table->string('phone');
             $table->integer('amount'); // Guardamos el anticipo pagado
             $table->string('status')->default('pending');
             $table->timestamps();
