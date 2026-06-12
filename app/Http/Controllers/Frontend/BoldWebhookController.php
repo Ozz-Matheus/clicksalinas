@@ -18,7 +18,6 @@ class BoldWebhookController extends Controller
         $signature = $request->header('x-bold-signature');
         $rawBody = $request->getContent(); // Necesitamos el body crudo como texto
         $encoded = base64_encode($rawBody);
-
         $secretKey = config('services.bold.webhook_secret', '');
         $hashed = hash_hmac('sha256', $encoded, $secretKey);
 
@@ -30,7 +29,6 @@ class BoldWebhookController extends Controller
 
         // 2. Extraer datos según el esquema oficial de Bold
         $payload = json_decode($rawBody, true);
-
         $type = $payload['type'] ?? null;
         $reference = $payload['data']['metadata']['reference'] ?? null;
 
@@ -52,14 +50,21 @@ class BoldWebhookController extends Controller
             return response()->json(['message' => 'Already processed'], 200);
         }
 
-        // 5. Actualizar el estado basado en el 'type' del evento
-        if ($type === 'SALE_APPROVED') {
-            $reservation->update(['status' => 'paid']);
-            Log::info('Reserva pagada exitosamente', ['reference' => $reference]);
+        // 5. Mapeo estructurado para actualizar el estado basado en el 'type' del evento
+        $statusMapping = [
+            'SALE_APPROVED' => 'paid',
+            'SALE_REJECTED' => 'rejected',
+            'VOID_APPROVED' => 'voided',
+            'VOID_REJECTED' => 'void_rejected',
+        ];
 
-        } elseif (in_array($type, ['SALE_REJECTED', 'VOID_APPROVED', 'VOID_REJECTED'])) {
-            $reservation->update(['status' => 'failed']);
-            Log::info('Reserva rechazada o anulada', ['reference' => $reference, 'type' => $type]);
+        if (array_key_exists($type, $statusMapping)) {
+            $newStatus = $statusMapping[$type];
+            $reservation->update(['status' => $newStatus]);
+
+            Log::info("Reserva actualizada a estado: {$newStatus}", ['reference' => $reference]);
+        } else {
+            Log::warning('Tipo de evento desconocido', ['type' => $type, 'reference' => $reference]);
         }
 
         // Bold exige un 200 OK rápido para no reintentar

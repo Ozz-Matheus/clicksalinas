@@ -58,7 +58,7 @@ Route::get('photography/{album:slug}', [PortfolioController::class, 'album'])->n
 */
 Route::get('checkout', [CheckoutController::class, 'show'])->name('checkout.show');
 Route::post('checkout', [CheckoutController::class, 'process'])->name('checkout.process');
-Route::get('checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
+Route::get('checkout/result', [CheckoutController::class, 'result'])->name('checkout.result');
 Route::post('webhooks/bold', [BoldWebhookController::class, 'handle'])->name('webhooks.bold');
 /*
 |--------------------------------------------------------------------------

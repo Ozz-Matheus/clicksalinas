@@ -51,7 +51,7 @@ class CheckoutController extends Controller
                 reference: $reservation->reference,
                 amount: $reservation->amount,
                 description: "Advance Payment - {$service->name} ({$reservation->name})",
-                redirectUrl: route('checkout.success', ['reference' => $reservation->reference])
+                redirectUrl: route('checkout.result', ['reference' => $reservation->reference])
             );
 
             return redirect()->away($paymentUrl);
@@ -63,11 +63,12 @@ class CheckoutController extends Controller
         }
     }
 
-    public function success(Request $request): View
+    public function result(Request $request): View
     {
-        // Capturamos la referencia que viene en la URL para mostrársela al cliente
         $reference = $request->query('reference');
+        // Capturamos el estado que envía Bold en la URL (por defecto 'pending' si no viene)
+        $status = $request->query('bold-tx-status', 'pending');
 
-        return view('page.checkout-success', compact('reference'));
+        return view('page.checkout-result', compact('reference', 'status'));
     }
 }
