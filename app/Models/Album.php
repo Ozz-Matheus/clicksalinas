@@ -65,7 +65,7 @@ class Album extends Model implements Indexable
 
     public function scopeVisibleTo(Builder $query, User $user): void
     {
-        if (! $user->hasRole('super_admin')) {
+        if (! $user->hasAnyRole(['super_admin', 'manager'])) {
             $query->where('user_id', $user->id);
         }
     }
