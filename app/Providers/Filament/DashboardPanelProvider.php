@@ -28,6 +28,7 @@ class DashboardPanelProvider extends PanelProvider
             ->default()
             ->id('dashboard')
             ->path('dashboard')
+            ->globalSearch(false)
             ->login()
             ->colors([
                 'primary' => Color::Zinc,
