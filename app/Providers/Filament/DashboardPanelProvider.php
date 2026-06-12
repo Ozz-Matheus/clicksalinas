@@ -32,6 +32,10 @@ class DashboardPanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Zinc,
             ])
+            ->favicon(asset('favicon/favicon-32x32.png'))
+            ->brandLogo(asset('images/clicksalinas-logotipo.svg'))
+            ->darkModeBrandLogo(asset('images/clicksalinas-isotipo.svg'))
+            ->brandLogoHeight('4.8rem')
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
             ->pages([

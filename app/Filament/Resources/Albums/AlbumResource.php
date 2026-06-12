@@ -19,7 +19,7 @@ class AlbumResource extends Resource
 {
     protected static ?string $model = Album::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::Photo;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedPhoto;
 
     protected static ?string $recordTitleAttribute = 'title';
 
