@@ -37,7 +37,8 @@ class StaticPageForm
 
                         TextInput::make('cover_title')
                             ->label('Título de portada')
-                            ->maxLength(255),
+                            ->maxLength(255)
+                            ->columnSpanFull(),
 
                         RichEditor::make('cover_paragraph')
                             ->label('Párrafo de portada')
@@ -57,7 +58,7 @@ class StaticPageForm
                             ])
                             ->deleteUploadedFileUsing(fn (string $file) => Storage::disk('public')->delete($file))
                             ->saveUploadedFileUsing(fn (TemporaryUploadedFile $file) => app(StaticPageImageService::class)->storeCover($file)),
-                    ]),
+                    ])->columns(2),
 
                 Section::make('Información Adicional')
                     ->schema([

@@ -27,8 +27,27 @@ class ServiceForm
                             ->label('Enlace')
                             ->required()
                             ->unique(ignoreRecord: true),
-                        RichEditor::make('description')->label('Descripción'),
-                    ]),
+                        RichEditor::make('description')->label('Descripción')
+                            ->columnSpanFull(),
+                    ])->columns(2),
+                Section::make('Información Adicional')
+                    ->schema([
+                        TextInput::make('price')
+                            ->label('Precio Total')
+                            ->numeric()
+                            ->default(0)
+                            ->minValue(0)
+                            ->required()
+                            ->prefix('$'),
+                        TextInput::make('deposit_amount')
+                            ->label('Anticipo')
+                            ->maxValue(fn ($get) => $get('price'))
+                            ->numeric()
+                            ->default(0)
+                            ->minValue(0)
+                            ->required()
+                            ->prefix('$'),
+                    ])->columns(2),
             ]);
     }
 }
