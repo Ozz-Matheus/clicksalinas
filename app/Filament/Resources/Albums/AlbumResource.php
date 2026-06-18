@@ -14,6 +14,7 @@ use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use UnitEnum;
 
 class AlbumResource extends Resource
 {
@@ -30,6 +31,8 @@ class AlbumResource extends Resource
     protected static ?string $pluralModelLabel = 'Álbumes';
 
     protected static ?string $navigationLabel = 'Álbumes';
+
+    protected static UnitEnum|string|null $navigationGroup = 'Gestión de Contenido';
 
     public static function form(Schema $schema): Schema
     {

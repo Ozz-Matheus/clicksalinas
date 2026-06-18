@@ -13,6 +13,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class EmailResource extends Resource
 {
@@ -29,6 +30,8 @@ class EmailResource extends Resource
     protected static ?string $pluralModelLabel = 'Mensajes de Contacto';
 
     protected static ?string $navigationLabel = 'Buzón de Contacto';
+
+    protected static UnitEnum|string|null $navigationGroup = 'Gestión de Mensajes';
 
     public static function infolist(Schema $schema): Schema
     {

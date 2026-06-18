@@ -15,6 +15,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class StaticPageResource extends Resource
 {
@@ -24,13 +25,15 @@ class StaticPageResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'name';
 
-    protected static ?int $navigationSort = 2;
+    protected static ?int $navigationSort = 4;
 
-    protected static ?string $modelLabel = 'Página Estática';
+    protected static ?string $modelLabel = 'Página';
 
-    protected static ?string $pluralModelLabel = 'Páginas Estáticas';
+    protected static ?string $pluralModelLabel = 'Páginas';
 
-    protected static ?string $navigationLabel = 'Páginas Estáticas';
+    protected static ?string $navigationLabel = 'Páginas';
+
+    protected static UnitEnum|string|null $navigationGroup = 'Gestión de Paginas';
 
     public static function form(Schema $schema): Schema
     {

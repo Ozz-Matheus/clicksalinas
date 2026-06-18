@@ -13,6 +13,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class ServiceResource extends Resource
 {
@@ -22,13 +23,15 @@ class ServiceResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'name';
 
-    protected static ?int $navigationSort = 3;
+    protected static ?int $navigationSort = 2;
 
     protected static ?string $modelLabel = 'Servicio';
 
     protected static ?string $pluralModelLabel = 'Servicios';
 
     protected static ?string $navigationLabel = 'Servicios';
+
+    protected static UnitEnum|string|null $navigationGroup = 'Gestión de Contenido';
 
     public static function form(Schema $schema): Schema
     {
