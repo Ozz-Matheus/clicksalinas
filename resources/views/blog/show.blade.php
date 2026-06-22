@@ -74,9 +74,18 @@
                           <!-- - .post__media-->
                           <div class="post__content">
                             {!! $post->body !!}
-                            @if($post->iframe)
+                            
+                            @if($post->youtube_id)
                               <div class="video-post">
-                                  {!! $post->iframe !!}
+                                <iframe
+                                  style="aspect-ratio: 16/9; width: 100%;"
+                                  src="https://www.youtube.com/embed/{{ $post->youtube_id }}"
+                                  title="YouTube video player"
+                                  frameborder="0"
+                                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                  referrerpolicy="strict-origin-when-cross-origin"
+                                  allowfullscreen>
+                                </iframe>
                               </div>
                             @endif
                           </div>

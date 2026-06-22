@@ -43,9 +43,9 @@ class PostForm
                             ->label('Contenido de la publicación')
                             ->columnSpanFull(),
 
-                        Textarea::make('iframe')
-                            ->label('Código de inserción (YouTube/Vimeo)')
-                            ->rows(3)
+                        TextInput::make('iframe')
+                            ->label('Enlace de Youtube')
+                            ->url()
                             ->columnSpanFull(),
 
                     ])->columns(2),

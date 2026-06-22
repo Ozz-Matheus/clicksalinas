@@ -82,4 +82,19 @@ class Post extends Model implements Indexable
     {
         return route('blog.show', $this->slug);
     }
+
+    /**
+     * Extrae el ID del video de YouTube desde la URL guardada en el campo 'iframe'.
+     */
+    public function getYoutubeIdAttribute(): ?string
+    {
+        if (empty($this->iframe)) {
+            return null;
+        }
+
+        // Esta expresión regular extrae el ID de 11 caracteres tanto de youtube.com como de youtu.be
+        preg_match('/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i', $this->iframe, $match);
+
+        return $match[1] ?? null;
+    }
 }
