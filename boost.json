@@ -5,6 +5,13 @@
     "cloud": false,
     "guidelines": true,
     "packages": [
-        "filament/filament"
+        "filament/filament",
+        "fruitcake/laravel-debugbar"
+    ],
+    "skills": [
+        "laravel-best-practices",
+        "pest-testing",
+        "tailwindcss-development",
+        "debug-using-debugbar"
     ]
 }
