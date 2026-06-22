@@ -14,12 +14,13 @@ class BoldWebhookController extends Controller
 {
     public function handle(Request $request): JsonResponse
     {
-        // 1. Verificación de Seguridad (Firma HMAC-SHA256)
+        // 1. Verificación de Seguridad estricta
+        $secretKey = config('services.bold.webhook_secret');
+        abort_if(empty($secretKey), 500, 'Webhook secret is not configured.');
+
         $signature = $request->header('x-bold-signature');
-        $rawBody = $request->getContent(); // Necesitamos el body crudo como texto
-        $encoded = base64_encode($rawBody);
-        $secretKey = config('services.bold.webhook_secret', '');
-        $hashed = hash_hmac('sha256', $encoded, $secretKey);
+        $rawBody = $request->getContent();
+        $hashed = hash_hmac('sha256', base64_encode($rawBody), $secretKey);
 
         if (! hash_equals($hashed, (string) $signature)) {
             Log::warning('Webhook Bold: Firma inválida detectada', ['ip' => $request->ip()]);
@@ -27,16 +28,36 @@ class BoldWebhookController extends Controller
             return response()->json(['message' => 'Invalid signature'], 400);
         }
 
-        // 2. Extraer datos según el esquema oficial de Bold
+        // 2. Extracción segura del payload
         $payload = json_decode($rawBody, true);
-        $type = $payload['type'] ?? null;
-        $reference = $payload['data']['metadata']['reference'] ?? null;
+        if (! is_array($payload)) {
+            return response()->json(['message' => 'Malformed JSON payload'], 400);
+        }
+
+        $type = data_get($payload, 'type');
+        $reference = data_get($payload, 'data.metadata.reference');
 
         if (! $reference) {
             return response()->json(['message' => 'Reference not found in payload'], 400);
         }
 
-        // 3. Buscar la reserva en nuestra BD
+        // 3. Mapeo de estados
+        $statusMapping = [
+            'SALE_APPROVED' => 'paid',
+            'SALE_REJECTED' => 'rejected',
+            'VOID_APPROVED' => 'voided',
+            'VOID_REJECTED' => 'void_rejected',
+        ];
+
+        $newStatus = $statusMapping[$type] ?? null;
+
+        if (! $newStatus) {
+            Log::warning('Webhook Bold: Tipo de evento desconocido', ['type' => $type, 'reference' => $reference]);
+
+            return response()->json(['message' => 'ok'], 200); // Retornamos 200 para que Bold no reintente eventos no soportados
+        }
+
+        // 4. Búsqueda e Idempotencia
         $reservation = Reservation::where('reference', $reference)->first();
 
         if (! $reservation) {
@@ -45,29 +66,15 @@ class BoldWebhookController extends Controller
             return response()->json(['message' => 'Reservation not found'], 404);
         }
 
-        // 4. Idempotencia: Si ya está pagada, respondemos 200 inmediatamente
-        if ($reservation->status === 'paid') {
+        // Si el estado actual ya es el que vamos a aplicar, evitamos la consulta a DB
+        if ($reservation->status === $newStatus) {
             return response()->json(['message' => 'Already processed'], 200);
         }
 
-        // 5. Mapeo estructurado para actualizar el estado basado en el 'type' del evento
-        $statusMapping = [
-            'SALE_APPROVED' => 'paid',
-            'SALE_REJECTED' => 'rejected',
-            'VOID_APPROVED' => 'voided',
-            'VOID_REJECTED' => 'void_rejected',
-        ];
+        // 5. Actualización
+        $reservation->update(['status' => $newStatus]);
+        Log::info("Reserva actualizada a estado: {$newStatus}", ['reference' => $reference]);
 
-        if (array_key_exists($type, $statusMapping)) {
-            $newStatus = $statusMapping[$type];
-            $reservation->update(['status' => $newStatus]);
-
-            Log::info("Reserva actualizada a estado: {$newStatus}", ['reference' => $reference]);
-        } else {
-            Log::warning('Tipo de evento desconocido', ['type' => $type, 'reference' => $reference]);
-        }
-
-        // Bold exige un 200 OK rápido para no reintentar
         return response()->json(['message' => 'ok'], 200);
     }
 }
