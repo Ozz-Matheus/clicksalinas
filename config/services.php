@@ -42,7 +42,7 @@ return [
 
     'bold' => [
         'api_key' => env('BOLD_API_KEY'),
-        'endpoint' => env('BOLD_ENDPOINT', 'https://api.online.payments.bold.co/v1'),
+        'endpoint' => env('BOLD_ENDPOINT', 'https://integrations.api.bold.co'),
         'webhook_secret' => env('BOLD_WEBHOOK_SECRET', ''),
     ],
 
