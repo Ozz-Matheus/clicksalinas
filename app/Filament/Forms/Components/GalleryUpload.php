@@ -25,7 +25,7 @@ class GalleryUpload
             ->visibility('public')
             ->columnSpanFull()
             ->dehydrated(false)
-            ->maxSize(2048)
+            ->maxSize(10240) // 10 MB
             ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
             ->loadStateFromRelationshipsUsing(
                 fn (?Model $record, $component) => $record ? $component->state($record->media()->pluck('file_path')->toArray()) : null

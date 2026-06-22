@@ -34,7 +34,7 @@ class CheckoutController extends Controller
         $service = Service::findOrFail($validated['service_id']);
 
         $reference = 'RES-'.Str::upper(Str::random(10));
-        $advanceAmount = $service->deposit_amount;
+        $advanceAmount = 50000; // Monto fijo para el pago por adelantado
 
         $reservation = Reservation::create([
             'reference' => $reference,

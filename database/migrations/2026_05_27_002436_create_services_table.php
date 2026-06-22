@@ -13,8 +13,6 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug')->unique();
             $table->mediumText('description')->nullable();
-            $table->integer('price')->default(0);          // Costo total del servicio
-            $table->integer('deposit_amount')->default(0); // Anticipo a cobrar en Bold
             $table->timestamps();
         });
     }

@@ -50,7 +50,7 @@ class StaticPageForm
                             ->disk('public')
                             ->visibility('public')
                             ->columnSpanFull()
-                            ->maxSize(2048) // Límite de 2MB
+                            ->maxSize(10240) // 10 MB
                             ->acceptedFileTypes([
                                 'image/jpeg',
                                 'image/png',
@@ -79,7 +79,7 @@ class StaticPageForm
                             ->disk('public')
                             ->visibility('public')
                             ->columnSpanFull()
-                            ->maxSize(2048) // Límite de 2MB
+                            ->maxSize(10240) // 10 MB
                             ->acceptedFileTypes([
                                 'image/jpeg',
                                 'image/png',

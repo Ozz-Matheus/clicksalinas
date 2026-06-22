@@ -17,14 +17,6 @@ class ServicesTable
                 TextColumn::make('name')
                     ->label('Nombre')
                     ->searchable(),
-                TextColumn::make('price')
-                    ->label('Precio Total')
-                    ->money('COP', divideBy: 1)
-                    ->sortable(),
-                TextColumn::make('deposit_amount')
-                    ->label('Anticipo')
-                    ->money('COP', divideBy: 1)
-                    ->sortable(),
                 ...TableDefaults::timestamps(),
             ])
             ->filters([
