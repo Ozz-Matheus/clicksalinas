@@ -32,6 +32,35 @@
                                 <div class="form__heading">
                                     <h2 class="form__heading-title margin-bottom">Complete your details to reserve</h2>
                                 </div>
+
+                                <div class="row form__row" style="top: -40px; position: relative;">
+
+                                    <div class="col-lg-6 form__col">
+                                        <label class="input-float">
+                                            <input type="text" class="input-float__input" name="name"
+                                                value="{{ old('name') }}" required>
+                                            <span class="input-float__label">Full name</span>
+
+                                            @error('name')
+                                                <span class="form__error">{{ $message }}</span>
+                                            @enderror
+                                        </label>
+                                    </div>
+
+                                    <div class="col-lg-6 form__col">
+                                        <label class="input-float">
+                                            <input type="email" class="input-float__input" name="email"
+                                                value="{{ old('email') }}" required>
+                                            <span class="input-float__label">Email address</span>
+
+                                            @error('email')
+                                                <span class="form__error">{{ $message }}</span>
+                                            @enderror
+                                        </label>
+                                    </div>
+
+                                </div>
+
                                 <div class="row form__row">
                                     <div class="col-lg-12 form__col">
                                         <label class="input-float">
@@ -57,33 +86,17 @@
                                             @enderror
                                         </label>
                                     </div>
-                                </div>
-
-                                <div class="row form__row">
                                     <div class="col-lg-12 form__col">
                                         <label class="input-float">
-                                            <input type="text" class="input-float__input" name="name"
-                                                value="{{ old('name') }}" required>
-                                            <span class="input-float__label">Full name</span>
+                                            <input type="number" class="input-float__input" name="amount"
+                                                value="{{ old('amount', $preselectedValue ?? '') }}" readonly required>
+                                            <span class="input-float__label">Amount to pay (COP)</span>
 
-                                            @error('name')
+                                            @error('amount')
                                                 <span class="form__error">{{ $message }}</span>
                                             @enderror
                                         </label>
                                     </div>
-
-                                    <div class="col-lg-6 form__col">
-                                        <label class="input-float">
-                                            <input type="email" class="input-float__input" name="email"
-                                                value="{{ old('email') }}" required>
-                                            <span class="input-float__label">Email address</span>
-
-                                            @error('email')
-                                                <span class="form__error">{{ $message }}</span>
-                                            @enderror
-                                        </label>
-                                    </div>
-
                                 </div>
 
                                 <div class="row form__row">

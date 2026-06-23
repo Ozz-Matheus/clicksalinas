@@ -19,6 +19,7 @@ class ProcessCheckoutRequest extends FormRequest
             'service_id' => ['required', 'exists:services,id'],
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255'],
+            'amount' => ['required', 'integer', 'min:50000'], // Minimum amount of 50,000
         ];
     }
 }

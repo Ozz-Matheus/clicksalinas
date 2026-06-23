@@ -20,10 +20,12 @@ class CheckoutController extends Controller
     public function show(Request $request): View
     {
         $services = Service::all();
-        // Si mandan ?service=slug en la URL, lo capturamos para preseleccionar
-        $preselectedSlug = $request->query('service');
 
-        return view('page.checkout', compact('services', 'preselectedSlug'));
+        // Capturamos el servicio y el valor de la URL
+        $preselectedSlug = $request->query('service');
+        $preselectedValue = $request->query('value');
+
+        return view('page.checkout', compact('services', 'preselectedSlug', 'preselectedValue'));
     }
 
     public function process(ProcessCheckoutRequest $request, BoldPaymentService $boldPayment): RedirectResponse
@@ -34,7 +36,9 @@ class CheckoutController extends Controller
         $service = Service::findOrFail($validated['service_id']);
 
         $reference = 'RES-'.Str::upper(Str::random(10));
-        $advanceAmount = 50000; // Monto fijo para el pago por adelantado
+
+        // Asignamos el monto dinámico enviado por el usuario
+        $advanceAmount = (int) $validated['amount'];
 
         $reservation = Reservation::create([
             'reference' => $reference,
