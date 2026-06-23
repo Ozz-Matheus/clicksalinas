@@ -34,7 +34,7 @@ class SubmitContactMessageAction
         // Intentamos enviar el correo sin romper la experiencia del usuario
         try {
             // Obtenemos el correo desde la configuración (por defecto fallback al de admin)
-            $adminEmail = config('mail.from.address', 'hi@clicksalinas.com');
+            $adminEmail = config('mail.admin_address', 'hi@clicksalinas.com');
 
             Mail::to($data['email'], $data['name'])
                 ->bcc($adminEmail, config('app.name'))
