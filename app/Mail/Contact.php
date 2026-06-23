@@ -6,7 +6,6 @@ namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
-use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
@@ -22,7 +21,6 @@ class Contact extends Mailable
      */
     public function __construct(array $msg)
     {
-        // Lo casteamos a objeto para que tu Blade siga usando $msg->name
         $this->msg = (object) $msg;
     }
 
@@ -33,10 +31,8 @@ class Contact extends Mailable
     {
         return new Envelope(
             subject: 'Message received by '.config('app.name'),
-            // Para poder darle "Responder" directamente al cliente en tu bandeja:
-            replyTo: [
-                new Address($this->msg->email, $this->msg->name),
-            ],
+            // Al omitar 'replyTo', las respuestas del cliente irán 
+            // por defecto a la dirección configurada en mail.from.address
         );
     }
 

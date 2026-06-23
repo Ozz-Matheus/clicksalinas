@@ -34,6 +34,12 @@ class BoldWebhookController extends Controller
             return response()->json(['message' => 'Malformed JSON payload'], 400);
         }
 
+        Log::info('Webhook Bold recibido', [
+            'headers' => $request->headers->all(),
+            'payload' => $payload,
+            'raw_body' => $rawBody,
+        ]);
+
         $type = data_get($payload, 'type');
         $reference = data_get($payload, 'data.metadata.reference');
 
@@ -68,6 +74,12 @@ class BoldWebhookController extends Controller
 
         // Si el estado actual ya es el que vamos a aplicar, evitamos la consulta a DB
         if ($reservation->status === $newStatus) {
+            Log::info('Webhook Bold ignorado: estado ya procesado', [
+                'reference' => $reference,
+                'status' => $reservation->status,
+                'event_type' => $type,
+            ]);
+
             return response()->json(['message' => 'Already processed'], 200);
         }
 
