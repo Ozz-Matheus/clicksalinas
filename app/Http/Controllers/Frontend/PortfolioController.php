@@ -26,7 +26,7 @@ class PortfolioController extends Controller
             ->with('media')
             ->published()
             ->latest('published_at')
-            ->paginate(12);
+            ->paginate(14);
 
         // 3. Fallback de imagen
         $cover = $service->cover_image_path ? $service->cover_image_path : null;

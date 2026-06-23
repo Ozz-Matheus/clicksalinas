@@ -37,7 +37,7 @@ class BlogController extends Controller
             ->with(['category', 'tags', 'media'])
             ->published()
             ->latest('published_at')
-            ->paginate(12);
+            ->paginate(14);
 
         return view('blog', compact('posts', 'category'));
     }
@@ -48,7 +48,7 @@ class BlogController extends Controller
             ->with(['category', 'tags', 'media'])
             ->published()
             ->latest('published_at')
-            ->paginate(12);
+            ->paginate(14);
 
         return view('blog', compact('posts', 'tag'));
     }
