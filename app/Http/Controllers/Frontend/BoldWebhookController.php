@@ -15,8 +15,7 @@ class BoldWebhookController extends Controller
     public function handle(Request $request): JsonResponse
     {
         // 1. Verificación de Seguridad estricta
-        $secretKey = config('services.bold.webhook_secret');
-        abort_if(empty($secretKey), 500, 'Webhook secret is not configured.');
+        $secretKey = (string) config('services.bold.webhook_secret', '');
 
         $signature = $request->header('x-bold-signature');
         $rawBody = $request->getContent();
@@ -34,14 +33,13 @@ class BoldWebhookController extends Controller
             return response()->json(['message' => 'Malformed JSON payload'], 400);
         }
 
-        Log::info('Webhook Bold recibido', [
-            'headers' => $request->headers->all(),
-            'payload' => $payload,
-            'raw_body' => $rawBody,
-        ]);
-
         $type = data_get($payload, 'type');
         $reference = data_get($payload, 'data.metadata.reference');
+
+        Log::info('Webhook Bold recibido', [
+            'type' => $type,
+            'reference' => $reference,
+        ]);
 
         if (! $reference) {
             return response()->json(['message' => 'Reference not found in payload'], 400);
@@ -64,12 +62,14 @@ class BoldWebhookController extends Controller
         }
 
         // 4. Búsqueda e Idempotencia
-        $reservation = Reservation::where('reference', $reference)->first();
+        $reservation = Reservation::firstWhere('reference', $reference);
 
         if (! $reservation) {
-            Log::warning('Webhook Bold: Reserva no encontrada', ['reference' => $reference]);
+            Log::warning('Webhook Bold: Reserva no encontrada', [
+                'reference' => $reference,
+            ]);
 
-            return response()->json(['message' => 'Reservation not found'], 404);
+            return response()->json(['message' => 'ok'], 200);
         }
 
         // Si el estado actual ya es el que vamos a aplicar, evitamos la consulta a DB

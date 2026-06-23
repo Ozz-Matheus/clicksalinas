@@ -31,8 +31,6 @@ class Contact extends Mailable
     {
         return new Envelope(
             subject: 'Message received by '.config('app.name'),
-            // Al omitar 'replyTo', las respuestas del cliente irán 
-            // por defecto a la dirección configurada en mail.from.address
         );
     }
 
