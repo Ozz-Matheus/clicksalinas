@@ -41,6 +41,9 @@ class PostForm
 
                         RichEditor::make('body')
                             ->label('Contenido de la publicación')
+                            ->extraAttributes([
+                                'style' => 'min-height: 266px; max-height: 350px; overflow-y: auto;',
+                            ])
                             ->columnSpanFull(),
 
                         TextInput::make('iframe')

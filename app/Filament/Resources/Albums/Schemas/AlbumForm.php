@@ -35,6 +35,9 @@ class AlbumForm
 
                         RichEditor::make('body')
                             ->label('Contenido del álbum')
+                            ->extraAttributes([
+                                'style' => 'min-height: 266px; max-height: 350px; overflow-y: auto;',
+                            ])
                             ->columnSpanFull(),
 
                     ])->columns(2),
