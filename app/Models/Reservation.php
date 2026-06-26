@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Reservation extends Model
 {
     protected $fillable = [
+        'clickup_task_id',
         'reference',
         'service_id',
         'name',
