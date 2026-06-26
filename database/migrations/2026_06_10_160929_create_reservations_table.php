@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('reservations', function (Blueprint $table) {
             $table->id();
+            $table->string('clickup_task_id')->nullable()->index();
             $table->string('reference')->unique()->index();
             $table->foreignId('service_id')->constrained()->cascadeOnDelete();
             $table->string('name');
