@@ -48,5 +48,6 @@ return [
 
     'n8n' => [
         'token' => env('N8N_API_TOKEN'),
+        'webhook_url' => env('N8N_WEBHOOK_URL'),
     ],
 ];

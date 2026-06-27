@@ -16,6 +16,7 @@ class ProcessCheckoutRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'task' => ['required', 'string'],
             'service_id' => ['required', 'exists:services,id'],
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255'],

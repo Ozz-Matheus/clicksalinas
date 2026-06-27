@@ -23,9 +23,10 @@ class CheckoutController extends Controller
 
         // Capturamos el servicio y el valor de la URL
         $preselectedSlug = $request->query('service');
+        $preselectedTask = $request->query('task');
         $preselectedValue = $request->query('value');
 
-        return view('page.checkout', compact('services', 'preselectedSlug', 'preselectedValue'));
+        return view('page.checkout', compact('services', 'preselectedSlug', 'preselectedTask', 'preselectedValue'));
     }
 
     public function process(ProcessCheckoutRequest $request, BoldPaymentService $boldPayment): RedirectResponse
@@ -38,14 +39,16 @@ class CheckoutController extends Controller
         $reference = 'RES-'.Str::upper(Str::random(10));
 
         // Asignamos el monto dinámico enviado por el usuario
-        $advanceAmount = (int) $validated['amount'];
+        $taskId = $validated['task'];
+        $amountValue = (int) $validated['amount'];
 
         $reservation = Reservation::create([
+            'crm_task_id' => $taskId,
             'reference' => $reference,
             'service_id' => $service->id,
             'name' => $validated['name'],
             'email' => $validated['email'],
-            'amount' => $advanceAmount,
+            'amount' => $amountValue,
             'status' => 'pending',
         ]);
 

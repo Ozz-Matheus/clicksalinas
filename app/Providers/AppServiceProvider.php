@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Reservation;
+use App\Observers\ReservationObserver;
 use App\Services\BoldPaymentService;
 use Filament\Tables\Columns\Column;
 use Illuminate\Pagination\Paginator;
@@ -27,6 +29,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Reservation::observe(ReservationObserver::class);
+
         Paginator::useBootstrapFour();
         Paginator::defaultView('vendor.pagination.default');
 

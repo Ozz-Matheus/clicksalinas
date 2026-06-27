@@ -33,6 +33,8 @@
                                     <h2 class="form__heading-title margin-bottom">Complete your details to reserve</h2>
                                 </div>
 
+                                <input type="hidden" name="task" value="{{ $preselectedTask ?? '' }}">
+
                                 <div class="row form__row" style="top: -40px; position: relative;">
 
                                     <div class="col-lg-6 form__col">
