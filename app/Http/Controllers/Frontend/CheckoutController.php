@@ -48,7 +48,7 @@ class CheckoutController extends Controller
             $paymentUrl = $boldPayment->createPaymentLink(
                 reference: $reservation->reference,
                 amount: $reservation->amount,
-                description: "Advance Payment - {$reservation->service->name} ({$reservation->name})",
+                description: 'Advance Payment - '.($reservation->service?->name ?? 'Servicio')." ({$reservation->name})",
                 redirectUrl: route('checkout.result', ['reference' => $reservation->reference])
             );
 

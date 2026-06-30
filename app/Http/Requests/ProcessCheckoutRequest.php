@@ -10,17 +10,17 @@ class ProcessCheckoutRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return true;
+        return true; // Permitimos el paso porque el middleware VerifyN8nToken ya protege la ruta
     }
 
     public function rules(): array
     {
         return [
-            'task' => ['required', 'string'],
-            'service_id' => ['required', 'exists:services,id'],
+            'crm_task_id' => ['required', 'string'],
+            'service_id' => ['nullable', 'exists:services,id'],
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email', 'max:255'],
-            'amount' => ['required', 'integer', 'min:50000'], // Minimum amount of 50,000
+            'email' => ['required', 'email'],
+            'amount' => ['required', 'integer', 'min:50000'],
         ];
     }
 }

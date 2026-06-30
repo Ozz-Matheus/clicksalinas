@@ -28,10 +28,8 @@ class ReservationForm
                         Select::make('service_id')
                             ->label('Servicio')
                             ->relationship('service', 'name')
-                            ->required()
                             ->searchable()
-                            ->preload()
-                            ->disabledOn('edit'),
+                            ->preload(),
 
                         TextInput::make('crm_task_id')
                             ->label('ID de Tarea')

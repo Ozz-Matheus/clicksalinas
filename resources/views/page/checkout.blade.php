@@ -23,7 +23,8 @@
                     <div class="row justify-content-center">
                         <div class="col-sm-10">
 
-                            <form class="form form-contact" action="{{ route('checkout.process', $reservation->uuid) }}" method="POST">
+                            <form class="form form-contact" action="{{ route('checkout.process', $reservation->uuid) }}"
+                                method="POST">
                                 @csrf
 
                                 @if (session('error'))
@@ -31,34 +32,37 @@
                                         {{ session('error') }}
                                     </div>
                                 @endif
-
                                 <div class="row form__row">
-                                    <div class="col-lg-6 form__col">
-                                        <label class="input-float">
-                                            <input type="text" class="input-float__input" value="{{ $reservation->service->name }}" readonly>
-                                            <span class="input-float__label">Service</span>
-                                        </label>
-                                    </div>
 
                                     <div class="col-lg-6 form__col">
                                         <label class="input-float">
-                                            <input type="text" class="input-float__input" value="{{ $reservation->name }}" readonly>
+                                            <input type="text" class="input-float__input"
+                                                value="{{ $reservation->name }}" readonly>
                                             <span class="input-float__label">Name</span>
                                         </label>
                                     </div>
-                                </div>
-
-                                <div class="row form__row">
                                     <div class="col-lg-6 form__col">
                                         <label class="input-float">
-                                            <input type="email" class="input-float__input" value="{{ $reservation->email }}" readonly>
+                                            <input type="email" class="input-float__input"
+                                                value="{{ $reservation->email }}" readonly>
                                             <span class="input-float__label">Email Address</span>
                                         </label>
                                     </div>
 
-                                    <div class="col-lg-6 form__col">
+                                    @if ($reservation->service)
+                                        <div class="col-lg-6 form__col">
+                                            <label class="input-float">
+                                                <input type="text" class="input-float__input"
+                                                    value="{{ $reservation->service->name }}" readonly>
+                                                <span class="input-float__label">Service</span>
+                                            </label>
+                                        </div>
+                                    @endif
+                                    <div class="col-lg-{{ $reservation->service ? '6' : '12' }} form__col">
                                         <label class="input-float">
-                                            <input type="text" class="input-float__input" value="$ {{ number_format($reservation->amount, 0, ',', '.') }} COP" readonly>
+                                            <input type="text" class="input-float__input"
+                                                value="$ {{ number_format($reservation->amount, 0, ',', '.') }} COP"
+                                                readonly>
                                             <span class="input-float__label">Amount to Pay</span>
                                         </label>
                                     </div>
@@ -66,17 +70,18 @@
 
                                 <div class="row form__row">
                                     <div class="col form__col form__col_submit">
-                                        <button class="button button_solid button_accent-secondary-2 button_fullwidth" type="submit">
+                                        <button class="button button_solid button_accent-secondary-2 button_fullwidth"
+                                            type="submit">
                                             Pay Secure Deposit with Bold
                                         </button>
                                     </div>
                                 </div>
                             </form>
-
                         </div>
                     </div>
                 </div>
-            </section>
         </div>
+        </section>
+    </div>
     </div>
 @stop

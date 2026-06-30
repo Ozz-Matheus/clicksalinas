@@ -16,7 +16,7 @@ return new class extends Migration
             $table->uuid('uuid')->unique(); // <-- Agregado para las URLs seguras
             $table->string('crm_task_id')->nullable()->index();
             $table->string('reference')->unique()->index();
-            $table->foreignId('service_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('service_id')->nullable()->constrained()->nullOnDelete();
             $table->string('name');
             $table->string('email');
             $table->integer('amount'); // Guardamos el anticipo pagado
