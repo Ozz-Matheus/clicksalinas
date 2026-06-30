@@ -34,7 +34,7 @@ class ReservationForm
                             ->disabledOn('edit'),
 
                         TextInput::make('crm_task_id')
-                            ->label('ID de Tarea ClickUp')
+                            ->label('ID de Tarea')
                             ->maxLength(255)
                             ->placeholder('Ej: CU-5487 (Opcional)'),
                     ])->columns(2),
