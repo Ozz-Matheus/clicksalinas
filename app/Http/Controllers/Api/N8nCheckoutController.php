@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ProcessCheckoutRequest; // No olvides importar la clase
+use App\Http\Requests\ProcessCheckoutRequest;
 use App\Models\Reservation;
 use Illuminate\Http\JsonResponse;
 

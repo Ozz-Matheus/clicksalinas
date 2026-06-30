@@ -18,7 +18,6 @@ class ReservationForm
             ->components([
                 Section::make('Datos de la Reserva')
                     ->schema([
-                        // Ocultamos la referencia en la creación, se autogenera en el modelo
                         TextInput::make('reference')
                             ->label('Referencia')
                             ->unique(ignoreRecord: true)
@@ -74,7 +73,6 @@ class ReservationForm
                     ->schema([
                         TextInput::make('url_pago')
                             ->label('URL Segura (UUID)')
-                            // Generamos la ruta asumiendo que tienes configurado Route Model Binding con el UUID
                             ->formatStateUsing(fn ($record) => $record ? route('checkout.show', $record->uuid) : '')
                             ->disabled()
                             ->dehydrated(false)
@@ -84,7 +82,7 @@ class ReservationForm
                                     ->action(fn ($state, $livewire) => $livewire->js("window.navigator.clipboard.writeText('{$state}')"))
                             ),
                     ])
-                    ->visibleOn('edit'), // Solo visible cuando el registro ya se guardó
+                    ->visibleOn('edit'),
             ]);
     }
 }
