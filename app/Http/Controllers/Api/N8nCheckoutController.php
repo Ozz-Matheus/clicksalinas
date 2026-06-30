@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ProcessCheckoutRequest;
 use App\Models\Reservation;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class N8nCheckoutController extends Controller
 {
@@ -30,5 +31,20 @@ class N8nCheckoutController extends Controller
             'message' => 'Checkout generado con éxito',
             'checkout_url' => route('checkout.show', $reservation->uuid),
         ], 201);
+    }
+
+    public function voidReservation(Request $request): JsonResponse
+    {
+        $request->validate(['crm_task_id' => 'required|string']);
+
+        $reservation = Reservation::where('crm_task_id', $request->crm_task_id)->first();
+
+        if ($reservation && $reservation->status === 'pending') {
+            $reservation->update(['status' => 'voided']);
+
+            return response()->json(['message' => 'Reserva anulada correctamente.']);
+        }
+
+        return response()->json(['message' => 'La reserva no existe o ya fue procesada.'], 400);
     }
 }
