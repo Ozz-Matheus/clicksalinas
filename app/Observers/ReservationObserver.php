@@ -14,6 +14,16 @@ class ReservationObserver
     {
         // Detectamos el cambio de estado a pagado
         if ($reservation->wasChanged('status') && $reservation->status === 'paid') {
+
+            // Validación clave: evitar enviar a n8n/ClickUp si no hay tarea asociada
+            if (empty($reservation->crm_task_id)) {
+                Log::warning('Reserva pagada, pero sin Id de tarea Se omite notificación a n8n.', [
+                    'reservation_id' => $reservation->id,
+                ]);
+
+                return;
+            }
+
             try {
                 $webhookUrl = config('services.n8n.webhook_url');
 
