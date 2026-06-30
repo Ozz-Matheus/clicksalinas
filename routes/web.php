@@ -56,9 +56,9 @@ Route::get('photography/{album:slug}', [PortfolioController::class, 'album'])->n
 | Checkout / Pagos
 |--------------------------------------------------------------------------
 */
-Route::get('checkout', [CheckoutController::class, 'show'])->name('checkout.show');
-Route::post('checkout', [CheckoutController::class, 'process'])->name('checkout.process');
 Route::get('checkout/result', [CheckoutController::class, 'result'])->name('checkout.result');
+Route::get('checkout/{reservation:uuid}', [CheckoutController::class, 'show'])->name('checkout.show');
+Route::post('checkout/{reservation:uuid}/process', [CheckoutController::class, 'process'])->name('checkout.process');
 Route::post('webhooks/bold', [BoldWebhookController::class, 'handle'])->name('webhooks.bold');
 /*
 |--------------------------------------------------------------------------

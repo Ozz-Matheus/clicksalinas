@@ -5,9 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ProcessCheckoutRequest;
 use App\Models\Reservation;
-use App\Models\Service;
 use App\Services\BoldPaymentService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -17,55 +15,47 @@ use Throwable;
 
 class CheckoutController extends Controller
 {
-    public function show(Request $request): View
+    // Ahora recibe el modelo inyectado gracias al Implicit Route Model Binding (por UUID)
+    public function show(Reservation $reservation): View
     {
-        $services = Service::all();
+        // Si ya se pagó previamente, mostramos directo el resultado
+        if ($reservation->status === 'paid') {
+            return view('page.checkout-result', [
+                'reference' => $reservation->reference,
+                'status' => 'paid',
+                'reservation' => $reservation,
+            ]);
+        }
 
-        // Capturamos el servicio y el valor de la URL
-        $preselectedSlug = $request->query('service');
-        $preselectedTask = $request->query('task');
-        $preselectedValue = $request->query('value');
-
-        return view('page.checkout', compact('services', 'preselectedSlug', 'preselectedTask', 'preselectedValue'));
+        return view('page.checkout', compact('reservation'));
     }
 
-    public function process(ProcessCheckoutRequest $request, BoldPaymentService $boldPayment): RedirectResponse
+    public function process(Reservation $reservation, BoldPaymentService $boldPayment): RedirectResponse
     {
-        $validated = $request->validated();
+        // Validamos de nuevo para evitar doble pago
+        if ($reservation->status === 'paid') {
+            return redirect()->route('checkout.show', $reservation->uuid);
+        }
 
-        // Obtenemos el servicio a partir del ID que viene del formulario
-        $service = Service::findOrFail($validated['service_id']);
-
-        $reference = 'RES-'.Str::upper(Str::random(10));
-
-        // Asignamos el monto dinámico enviado por el usuario
-        $taskId = $validated['task'];
-        $amountValue = (int) $validated['amount'];
-
-        $reservation = Reservation::create([
-            'crm_task_id' => $taskId,
-            'reference' => $reference,
-            'service_id' => $service->id,
-            'name' => $validated['name'],
-            'email' => $validated['email'],
-            'amount' => $amountValue,
-            'status' => 'pending',
+        // ROTACIÓN DE REFERENCIA:
+        // Generamos y guardamos una nueva referencia por cada intento de pago.
+        // Así Bold siempre recibe un ID fresco y el webhook lo encontrará sin problema.
+        $reservation->update([
+            'reference' => 'RES-'.Str::upper(Str::random(10)),
         ]);
 
         try {
             $paymentUrl = $boldPayment->createPaymentLink(
                 reference: $reservation->reference,
                 amount: $reservation->amount,
-                description: "Advance Payment - {$service->name} ({$reservation->name})",
+                description: "Advance Payment - {$reservation->service->name} ({$reservation->name})",
                 redirectUrl: route('checkout.result', ['reference' => $reservation->reference])
             );
 
             return redirect()->away($paymentUrl);
 
         } catch (Throwable $e) {
-            return back()
-                ->withInput()
-                ->with('error', 'There was a connection problem with the gateway. Please try again.');
+            return back()->with('error', 'There was a connection problem with the gateway. Please try again.');
         }
     }
 
@@ -75,6 +65,9 @@ class CheckoutController extends Controller
         // Capturamos el estado que envía Bold en la URL (por defecto 'pending' si no viene)
         $status = $request->query('bold-tx-status', 'pending');
 
-        return view('page.checkout-result', compact('reference', 'status'));
+        // Buscamos la reserva por su referencia para tener acceso al UUID
+        $reservation = Reservation::where('reference', $reference)->first();
+
+        return view('page.checkout-result', compact('reference', 'status', 'reservation'));
     }
 }

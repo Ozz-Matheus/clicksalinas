@@ -1,6 +1,6 @@
 @extends('layout')
 
-@section('meta-title', 'Book Service : ' . config('app.name'))
+@section('meta-title', 'Confirm Reservation : ' . config('app.name'))
 
 @section('content')
     <div class="container-fluid container_xs-no-padding">
@@ -9,7 +9,7 @@
                 <header class="row section-masthead__header justify-content-center">
                     <div class="col section_mb">
                         <h1 class="js-text-to-fly split-text js-split-text section-masthead__heading">
-                            Book Session
+                            Confirm Reservation
                         </h1>
                         <div class="section__headline"></div>
                     </div>
@@ -22,89 +22,51 @@
                 <div class="container border-radius bg-off-white">
                     <div class="row justify-content-center">
                         <div class="col-sm-10">
-                            <form class="form form-contact" action="{{ route('checkout.process') }}" method="POST">
+
+                            <form class="form form-contact" action="{{ route('checkout.process', $reservation->uuid) }}" method="POST">
                                 @csrf
+
                                 @if (session('error'))
                                     <div class="alert alert-danger" style="color: red; margin-bottom: 20px;">
                                         {{ session('error') }}
                                     </div>
                                 @endif
-                                <div class="form__heading">
-                                    <h2 class="form__heading-title margin-bottom">Complete your details to reserve</h2>
-                                </div>
 
-                                <input type="hidden" name="task" value="{{ $preselectedTask ?? '' }}">
-
-                                <div class="row form__row" style="top: -40px; position: relative;">
-
+                                <div class="row form__row">
                                     <div class="col-lg-6 form__col">
                                         <label class="input-float">
-                                            <input type="text" class="input-float__input" name="name"
-                                                value="{{ old('name') }}" required>
-                                            <span class="input-float__label">Full name</span>
-
-                                            @error('name')
-                                                <span class="form__error">{{ $message }}</span>
-                                            @enderror
+                                            <input type="text" class="input-float__input" value="{{ $reservation->service->name }}" readonly>
+                                            <span class="input-float__label">Service</span>
                                         </label>
                                     </div>
 
                                     <div class="col-lg-6 form__col">
                                         <label class="input-float">
-                                            <input type="email" class="input-float__input" name="email"
-                                                value="{{ old('email') }}" required>
-                                            <span class="input-float__label">Email address</span>
-
-                                            @error('email')
-                                                <span class="form__error">{{ $message }}</span>
-                                            @enderror
+                                            <input type="text" class="input-float__input" value="{{ $reservation->name }}" readonly>
+                                            <span class="input-float__label">Name</span>
                                         </label>
                                     </div>
-
                                 </div>
 
                                 <div class="row form__row">
-                                    <div class="col-lg-12 form__col">
+                                    <div class="col-lg-6 form__col">
                                         <label class="input-float">
-                                            <select class="input-float__input" name="service_id" required>
-                                                <option value="" disabled {{ old('service_id') ? '' : 'selected' }}>
-                                                    Select a service...
-                                                </option>
-
-                                                @foreach ($services as $svc)
-                                                    <option value="{{ $svc->id }}"
-                                                        {{ old('service_id') == $svc->id || (isset($preselectedSlug) && $preselectedSlug === $svc->slug) ? 'selected' : '' }}>
-                                                        {{ $svc->name }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-
-                                            <span class="input-float__label" style="top: -10px;">
-                                                Service to book
-                                            </span>
-
-                                            @error('service_id')
-                                                <span class="form__error">{{ $message }}</span>
-                                            @enderror
+                                            <input type="email" class="input-float__input" value="{{ $reservation->email }}" readonly>
+                                            <span class="input-float__label">Email Address</span>
                                         </label>
                                     </div>
-                                    <div class="col-lg-12 form__col">
-                                        <label class="input-float">
-                                            <input type="number" class="input-float__input" name="amount"
-                                                value="{{ old('amount', $preselectedValue ?? '') }}" readonly required>
-                                            <span class="input-float__label">Amount to pay (COP)</span>
 
-                                            @error('amount')
-                                                <span class="form__error">{{ $message }}</span>
-                                            @enderror
+                                    <div class="col-lg-6 form__col">
+                                        <label class="input-float">
+                                            <input type="text" class="input-float__input" value="$ {{ number_format($reservation->amount, 0, ',', '.') }} COP" readonly>
+                                            <span class="input-float__label">Amount to Pay</span>
                                         </label>
                                     </div>
                                 </div>
 
                                 <div class="row form__row">
                                     <div class="col form__col form__col_submit">
-                                        <button class="button button_solid button_accent-secondary-2 button_fullwidth"
-                                            type="submit">
+                                        <button class="button button_solid button_accent-secondary-2 button_fullwidth" type="submit">
                                             Pay Secure Deposit with Bold
                                         </button>
                                     </div>

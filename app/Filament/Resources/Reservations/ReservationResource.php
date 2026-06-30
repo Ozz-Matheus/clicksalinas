@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Reservations;
 
+use App\Filament\Resources\Reservations\Pages\CreateReservation;
 use App\Filament\Resources\Reservations\Pages\EditReservation;
 use App\Filament\Resources\Reservations\Pages\ListReservations;
 use App\Filament\Resources\Reservations\Schemas\ReservationForm;
@@ -49,15 +50,11 @@ class ReservationResource extends Resource
         ];
     }
 
-    public static function canCreate(): bool
-    {
-        return false;
-    }
-
     public static function getPages(): array
     {
         return [
             'index' => ListReservations::route('/'),
+            'create' => CreateReservation::route('/create'),
             'edit' => EditReservation::route('/{record}/edit'),
         ];
     }

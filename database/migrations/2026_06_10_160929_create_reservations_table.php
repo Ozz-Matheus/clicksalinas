@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('reservations', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid')->unique(); // <-- Agregado para las URLs seguras
             $table->string('crm_task_id')->nullable()->index();
             $table->string('reference')->unique()->index();
             $table->foreignId('service_id')->constrained()->cascadeOnDelete();

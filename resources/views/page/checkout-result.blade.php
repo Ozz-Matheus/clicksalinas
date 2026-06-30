@@ -9,21 +9,17 @@
         <div class="row justify-content-center">
           <div class="col-sm-8">
             
-            @if($status === 'failed' || $status === 'rejected')
-                <div style="font-size: 48px; color: #EF4444; margin-bottom: 20px;">
-                    ✕
-                </div>
-                <h2 style="margin-bottom: 20px;">Your payment could not be processed</h2>
+            @if(strtoupper($status) === 'APPROVED' || strtoupper($status) === 'PAID')
+                <div style="font-size: 48px; color: #10B981; margin-bottom: 20px;">✓</div>
+                <h2 style="margin-bottom: 20px;">Payment Confirmed</h2>
                 <p style="font-size: 18px; color: #666; margin-bottom: 30px;">
-                   The payment gateway rejected the transaction or it was canceled. Please try again or use a different payment method.
+                   Your reservation has been processed successfully. We will notify you shortly.
                 </p>
             @else
-                <div style="font-size: 48px; color: #10B981; margin-bottom: 20px;">
-                    ✓
-                </div>
-                <h2 style="margin-bottom: 20px;">Payment process completed</h2>
+                <div style="font-size: 48px; color: #EF4444; margin-bottom: 20px;">✕</div>
+                <h2 style="margin-bottom: 20px;">Payment could not be processed</h2>
                 <p style="font-size: 18px; color: #666; margin-bottom: 30px;">
-                   We have received your reservation request. The payment gateway will notify us within the next few minutes once your bank confirms the transaction.
+                   The transaction status is <strong>{{ strtoupper($status) }}</strong>. Please try again or use a different payment method.
                 </p>
             @endif
 
@@ -36,14 +32,25 @@
             </div>
             @endif
 
-            <a href="{{ route('checkout.show') }}" class="button button_solid button_accent-secondary-2">
-              Try Again
-            </a>
+            @if(strtoupper($status) === 'APPROVED' || strtoupper($status) === 'PAID')
+                <a href="{{ route('pages.home') }}" class="button button_solid button_accent-secondary-2">
+                    Back to Home
+                </a>
+            @else
+                @if(isset($reservation) && $reservation)
+                    <a href="{{ route('checkout.show', $reservation->uuid) }}" class="button button_solid button_accent-secondary-2">
+                        Try Again
+                    </a>
+                @else
+                    <a href="{{ route('pages.home') }}" class="button button_solid button_accent-secondary-2">
+                        Back to Home
+                    </a>
+                @endif
+            @endif
 
           </div>
         </div>
       </div>
     </section>
-  </div>
 </div>
 @stop
