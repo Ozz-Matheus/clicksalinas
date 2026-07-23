@@ -40,7 +40,7 @@ class N8nPostController extends Controller
             'body' => $validated['body'] ?? null,
             'category_id' => $category?->id,
             'user_id' => $validated['user_id'] ?? 2, // Fallback al Super Admin
-            'published_at' => $validated['published_at'] ?? now(),
+            'published_at' => $validated['published_at'] ?? now()->addDays(8),
         ]);
 
         // 4. Sincronizar Etiquetas (Crear si no existen)
