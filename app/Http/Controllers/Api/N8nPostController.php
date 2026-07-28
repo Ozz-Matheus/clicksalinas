@@ -60,7 +60,8 @@ class N8nPostController extends Controller
         return response()->json([
             'message' => 'Post creado exitosamente',
             'post_id' => $post->id,
-            'url' => $post->getIndexableUrl(),
+            'url' => url("/dashboard/posts/{$post->slug}/edit"),
+            'public_url' => $post->getIndexableUrl(),
         ], 201);
     }
 }
