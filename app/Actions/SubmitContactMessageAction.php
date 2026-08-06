@@ -25,9 +25,6 @@ class SubmitContactMessageAction
      */
     public function execute(array $data): Email
     {
-        $phone = $data['phone'] ?? null;
-        $data['phone'] = filled($phone) ? $phone : 'No proporcionado';
-
         // Guardamos el mensaje en base de datos
         $emailRecord = Email::create($data);
 

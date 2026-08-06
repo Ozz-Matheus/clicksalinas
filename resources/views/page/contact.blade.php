@@ -46,7 +46,7 @@
                   </div>
                   <div class="col-lg-4 form__col">
                     <label class="input-float">
-                        <input type="tel" id="phone_visible" class="input-float__input" value="{{ old('phone') }}">
+                        <input type="tel" id="phone_visible" class="input-float__input" value="{{ old('phone') }}" required>
                         
                         <input type="hidden" name="phone" id="phone_hidden" value="{{ old('phone') }}">
                         

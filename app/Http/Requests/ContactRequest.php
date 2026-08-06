@@ -17,7 +17,7 @@ class ContactRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255'],
-            'phone' => ['nullable', 'string', 'regex:/^\+[1-9]\d{1,3}[ \d]{6,14}$/'],
+            'phone' => ['required', 'string', 'regex:/^\+[1-9]\d{1,3}[ \d]{6,14}$/'],
             'message' => ['required', 'string'],
             'g-recaptcha-response' => ['required', new Recaptcha],
         ];
