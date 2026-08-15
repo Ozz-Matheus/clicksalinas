@@ -1,6 +1,7 @@
 @extends('layout')
 
 @section('meta-title', 'Confirm Reservation : ' . config('app.name'))
+@section('meta-robots', 'noindex, follow')
 
 @section('content')
     <div class="container-fluid container_xs-no-padding">

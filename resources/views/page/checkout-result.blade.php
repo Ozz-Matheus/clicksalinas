@@ -1,6 +1,7 @@
 @extends('layout')
 
 @section('meta-title', 'Reservation Result : ' . config('app.name'))
+@section('meta-robots', 'noindex, follow')
 
 @section('content')
 <div class="bg-white">
