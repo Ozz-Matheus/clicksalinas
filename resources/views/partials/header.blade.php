@@ -17,10 +17,10 @@
             </div>
             <div class="col d-none d-md-block text-right header__col-right">
               <ul class="social">
-                <li class="social__item"><a class="fa fa-facebook-f" href="https://www.facebook.com/clicksalinas.photo/" target="_blank" rel="noopener"></a></li>
-                <li class="social__item"><a class="fa fa-instagram" href="https://www.instagram.com/clicksalinas.photo/" target="_blank" rel="noopener"></a></li>
-                <li class="social__item"><a class="fa fa-vimeo" href="https://vimeo.com/carlossalinasphotography" target="_blank" rel="noopener"></a></li>
-                <li class="social__item"><a class="fa fa-whatsapp" href="https://wa.me/573014171660?text=Hola%20ClickSalinas,%20vi%20su%20sitio%20web%20y%20me%20interesa%20conocer%20m%C3%A1s%20sobre%20sus%20servicios." target="_blank" rel="noopener"></a></li>
+                <li class="social__item"><a class="fa fa-facebook-f" href="https://www.facebook.com/clicksalinas.photo/?utm_source=clicksalinas.com&utm_medium=website_social_links&utm_campaign=social_menu" target="_blank" rel="noopener"></a></li>
+                <li class="social__item"><a class="fa fa-instagram" href="https://www.instagram.com/clicksalinas.photo/?utm_source=clicksalinas.com&utm_medium=website_social_links&utm_campaign=social_menu" target="_blank" rel="noopener"></a></li>
+                <li class="social__item"><a class="fa fa-vimeo" href="https://vimeo.com/carlossalinasphotography?utm_source=clicksalinas.com&utm_medium=website_social_links&utm_campaign=social_menu" target="_blank" rel="noopener"></a></li>
+                <li class="social__item"><a class="fa fa-whatsapp" href="https://wa.me/573014171660?text=Hola%20ClickSalinas,%20vi%20su%20sitio%20web%20y%20me%20interesa%20conocer%20m%C3%A1s%20sobre%20sus%20servicios.&utm_source=clicksalinas.com&utm_medium=website_social_links&utm_campaign=social_menu" target="_blank" rel="noopener"></a></li>
               </ul>
             </div>
           </div>
@@ -73,10 +73,10 @@
               <div class="row justify-content-between">
                 <div class="col-lg-4 text-center d-lg-none">
                   <ul class="social">
-                    <li class="social__item"><a class="fa fa-facebook-f" href="https://www.facebook.com/clicksalinas.photo/" target="_blank" rel="noopener"></a></li>
-                    <li class="social__item"><a class="fa fa-instagram" href="https://www.instagram.com/clicksalinas.photo/" target="_blank" rel="noopener"></a></li>
-                    <li class="social__item"><a class="fa fa-vimeo" href="https://vimeo.com/carlossalinasphotography" target="_blank" rel="noopener"></a></li>
-                    <li class="social__item"><a class="fa fa-whatsapp" href="https://wa.me/573014171660?text=Hola%20ClickSalinas,%20vi%20su%20sitio%20web%20y%20me%20interesa%20conocer%20m%C3%A1s%20sobre%20sus%20servicios." target="_blank" rel="noopener"></a></li>
+                    <li class="social__item"><a class="fa fa-facebook-f" href="https://www.facebook.com/clicksalinas.photo/?utm_source=clicksalinas.com&utm_medium=website_social_links&utm_campaign=social_menu_mobile" target="_blank" rel="noopener"></a></li>
+                    <li class="social__item"><a class="fa fa-instagram" href="https://www.instagram.com/clicksalinas.photo/?utm_source=clicksalinas.com&utm_medium=website_social_links&utm_campaign=social_menu_mobile" target="_blank" rel="noopener"></a></li>
+                    <li class="social__item"><a class="fa fa-vimeo" href="https://vimeo.com/carlossalinasphotography?utm_source=clicksalinas.com&utm_medium=website_social_links&utm_campaign=social_menu_mobile" target="_blank" rel="noopener"></a></li>
+                    <li class="social__item"><a class="fa fa-whatsapp" href="https://wa.me/573014171660?text=Hola%20ClickSalinas,%20vi%20su%20sitio%20web%20desde%20mi%20celular%20y%20me%20interesa%20conocer%20m%C3%A1s%20sobre%20sus%20servicios.&utm_source=clicksalinas.com&utm_medium=website_social_links&utm_campaign=social_menu_mobile" target="_blank" rel="noopener"></a></li>
                   </ul>
                 </div>
                 <div class="col-lg-4 text-left">

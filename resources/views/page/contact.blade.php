@@ -99,6 +99,8 @@
     <section class="section section-contacts bg-white section_pb">
       <div class="container">
         <div class="row justify-content-center">
+          
+          <!-- Teléfono -->
           <div class="col-lg-3">
             <div class="figure-contact">
               <div class="figure-contact__icon material-icons">phone</div>
@@ -107,13 +109,15 @@
               </div>
             </div>
           </div>
+
+          <!-- WhatsApp -->
           <div class="col-lg-3">
             <div class="figure-contact">
               <div class="figure-contact__icon material-icons">
-                <li class="fa fa-whatsapp"></li>
+                <i class="fa fa-whatsapp"></i>
               </div>
               <div class="figure-contact__item">
-                <a href="https://wa.me/573014171660?text=Hola%20ClickSalinas,%20vi%20su%20sitio%20web%20y%20los%20contacto%20para%20conocer%20m%C3%A1s%20sobre%20sus%20servicios."
+                <a href="https://wa.me/573014171660?text=Hola%20ClickSalinas,%20estoy%20en%20su%20p%C3%A1gina%20de%20contacto%20y%20me%20gustar%C3%ADa%20cotizar%20un%20servicio.&utm_source=clicksalinas.com&utm_medium=contact_page&utm_campaign=direct_lead"
                   target="_blank"
                   rel="noopener">
                   WhatsApp
@@ -121,18 +125,27 @@
               </div>
             </div>
           </div>
+
+          <!-- Messenger -->
           <div class="col-lg-3">
             <div class="figure-contact">
               <div class="figure-contact__icon material-icons">
-                <li class="fa fa-comments"></li>
+                <i class="fa fa-comments"></i>
               </div>
-              <div class="figure-contact__item"><a href="https://www.messenger.com/t/clicksalinas.photo" target="_blank" rel="noopener">Messenger</a></div>
+              <div class="figure-contact__item">
+                <a href="https://www.messenger.com/t/clicksalinas.photo?utm_source=clicksalinas.com&utm_medium=contact_page&utm_campaign=direct_lead" 
+                  target="_blank" 
+                  rel="noopener">
+                  Messenger
+                </a>
+              </div>
             </div>
           </div>
+
         </div>
       </div>
     </section>
-    <!-- - section CONTACTS -->
+    <!-- - section CONTACTS -->    
   </div>
 
 @push('style')
