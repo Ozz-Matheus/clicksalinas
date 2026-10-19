@@ -25,7 +25,11 @@ class ContactController extends Controller
 
     public function store(ContactRequest $request, SubmitContactMessageAction $submitContactMessage): RedirectResponse
     {
-        $submitContactMessage->execute($request->validated());
+        $submitContactMessage->execute(
+            $request->validated(),
+            $request->ip(),
+            $request->userAgent(),
+        );
 
         return back()->with('flash', 'Thank you! Your message has been sent successfully.');
     }
