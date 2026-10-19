@@ -23,10 +23,13 @@ class SubmitContactMessageAction
      * 'g-recaptcha-response'?: string
      * } $data
      */
-    public function execute(array $data): Email
+    public function execute(array $data, ?string $ipAddress = null, ?string $userAgent = null): Email
     {
         // Guardamos el mensaje en base de datos
-        $emailRecord = Email::create($data);
+        $emailRecord = Email::create(array_merge($data, [
+            'ip_address' => $ipAddress,
+            'user_agent' => $userAgent ? mb_substr($userAgent, 0, 1000) : null,
+        ]));
 
         // Intentamos enviar el correo sin romper la experiencia del usuario
         try {
