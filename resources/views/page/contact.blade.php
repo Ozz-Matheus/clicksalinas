@@ -21,6 +21,10 @@
             <div class="col-sm-10 {{ session()->has('flash') ? 'sent' : '' }}">
               <form class="form form-contact" action="{{ route('mail.sent') }}" method="POST">
                 @csrf
+                <div aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;">
+                  <label for="contact_website">Website</label>
+                  <input type="text" name="website" id="contact_website" value="" tabindex="-1" autocomplete="off">
+                </div>
                 <div class="form__heading">
                   <h2>{{ $page->cover_title }}</h2>
                     <div class="title h6 margin-bottom">
