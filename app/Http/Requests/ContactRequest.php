@@ -15,6 +15,7 @@ class ContactRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'website' => ['prohibited'],
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255'],
             'phone' => ['required', 'string', 'regex:/^\+[1-9]\d{1,3}[ \d]{6,14}$/'],
