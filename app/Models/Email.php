@@ -13,5 +13,7 @@ class Email extends Model
         'email',
         'phone',
         'message',
+        'ip_address',
+        'user_agent',
     ];
 }
