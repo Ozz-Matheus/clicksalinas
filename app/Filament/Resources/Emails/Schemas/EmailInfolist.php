@@ -20,6 +20,13 @@ class EmailInfolist
                         TextEntry::make('phone')
                             ->label('Teléfono')
                             ->icon('heroicon-m-phone'),
+                        TextEntry::make('ip_address')
+                            ->label('IP de origen')
+                            ->placeholder('No registrada'),
+                        TextEntry::make('user_agent')
+                            ->label('Navegador / User-Agent')
+                            ->placeholder('No registrado')
+                            ->columnSpanFull(),
                         TextEntry::make('created_at')
                             ->label('Fecha de Recepción')
                             ->dateTime('d/m/Y H:i:s'),
