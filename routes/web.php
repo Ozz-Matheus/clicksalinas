@@ -23,7 +23,7 @@ Route::get('/about', [PageController::class, 'about'])->name('pages.about');
 |--------------------------------------------------------------------------
 */
 Route::get('/contact', [ContactController::class, 'index'])->name('pages.contact');
-Route::post('/mail', [ContactController::class, 'store'])->name('mail.sent');
+Route::post('/mail', [ContactController::class, 'store'])->middleware('throttle:5,1')->name('mail.sent');
 
 /*
 |--------------------------------------------------------------------------
